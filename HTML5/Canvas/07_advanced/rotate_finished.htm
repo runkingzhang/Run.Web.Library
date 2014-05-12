@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>The Rotate Transform</title>
+		<style type="text/css">
+			canvas {
+				border: dotted 1px black;
+				margin: 25px;
+			}
+		</style>
+		<script type="text/javascript">
+			//旋转内容
+		    window.onload = function () {
+		        var theCanvas = document.getElementById('Canvas1');
+		        if (theCanvas && theCanvas.getContext) {
+		            var ctx = theCanvas.getContext("2d");
+		            if (ctx) {
+						
+						ctx.fillStyle = "blue";
+						ctx.fillRect(150,30,100,50);
+
+						ctx.rotate(0.1);
+						ctx.fillRect(150,30,100,50);
+						
+						
+						ctx.translate(ctx.canvas.width/2, ctx.canvas.height/2);
+						var radian=(Math.PI / 180) * 20;
+						for (var degrees = 0; degrees < 360; degrees += 20) {
+							ctx.rotate(radian);
+							ctx.beginPath();
+							ctx.moveTo(-100,0);
+							ctx.lineTo(100,0);
+							ctx.stroke();
+						}
+		            }
+		        }
+		    }
+		</script>
+	</head>
+	<body>
+		<h1>The Rotate Transform</h1>
+		<p>.</p>
+		<canvas id="Canvas1" width="700" height="300">Your browser does not support canvas.</canvas>
+	</body>
+</html>

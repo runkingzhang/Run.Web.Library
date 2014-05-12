@@ -1,0 +1,46 @@
+<!--
+date：2013-09-04
+commit：canvas  学习
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Drawing Lines</title>
+		<style type="text/css">
+			canvas {
+				border: dotted 1px black;
+			}
+		</style>
+		<script>
+			window.onload = function() {
+				var theCanvas = document.getElementById('Canvas1');
+				if (theCanvas && theCanvas.getContext) {
+					var ctx = theCanvas.getContext("2d");
+					if (ctx) {
+						ctx.fillStyle = "green";
+						ctx.fillRect(0,0,100,100);
+						
+						ctx.lineWidth = 5;
+						ctx.strokeStyle="rgba(0,0,255,1)";
+						ctx.strokeRect(0,0,100,100);
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Drawing With Colors and Styles</h1>
+		<p>This example shows how to set the drawing style</p>
+		<canvas id="Canvas1" width="500" height="200">Your browser does not support canvas.</canvas>
+	</body>
+</html>
+<!--
+fill 填充  rect矩形 stroke画笔
+note：
+if (theCanvas && theCanvas.getContext) 判断浏览器是否支持canvas属性
+var ctx = theCanvas.getContext("2d"); 获取擦canvas属性的2dAPI，canvas还有3D的API
+ctx.fillStyle = "green"; 填充颜色为green
+ctx.fillRect(0,0,100,100); 填充的图形为矩形，后面的四个参数是开始的X，Y ，width和height
+以上两个代码可以理解为PS里面的填充功能
+
+-->
