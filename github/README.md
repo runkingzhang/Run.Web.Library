@@ -114,6 +114,8 @@ git remote add helloworld git://github.com/runkingzhang/runkingzhang.git
 
 ```推送到远程仓库
 git remote 
+//查看对应的remote 名称和地址信息
+git remote -v
 //复制到本地
 git clone git://github.com/runkingzhang/runkingzhang.git
 git remote add [shortname] [url]：
@@ -162,5 +164,12 @@ $ git commit -m "README for this project."
 //网路上面的解决方法是不不正确的。建议好好学习git。
 $git remote add origin https://github.com/runkingzhang/helloworld
 $ git push -u origin master
+
+$ git add README.md
+$ git commit -m "README for this project."
+$ git push -u Run.web  master
+
 ```
+
+
 
