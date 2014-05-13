@@ -2,7 +2,7 @@
 
 Runking's Web Development Workspace.
 
-by [**Luics**](http://luics.github.com/), since 2012-04-28
+by [**Runking**](http://runkingzhang.github.io/), since 2012-04-28
 
 这里是runking的Workspace
 
