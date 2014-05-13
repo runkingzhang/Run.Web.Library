@@ -1,0 +1,428 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>hello.md</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+body{
+    margin: 0 auto;
+    font-family: Georgia, Palatino, serif;
+    color: #444444;
+    line-height: 1;
+    max-width: 960px;
+    padding: 5px;
+}
+h1, h2, h3, h4 {
+    color: #111111;
+    font-weight: 400;
+}
+h1, h2, h3, h4, h5, p {
+    margin-bottom: 16px;
+    padding: 0;
+}
+h1 {
+    font-size: 28px;
+}
+h2 {
+    font-size: 22px;
+    margin: 20px 0 6px;
+}
+h3 {
+    font-size: 21px;
+}
+h4 {
+    font-size: 18px;
+}
+h5 {
+    font-size: 16px;
+}
+a {
+    color: #0099ff;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+a:hover {
+    text-decoration: none;
+    color: #ff6600;
+}
+a:visited {
+    color: purple;
+}
+ul, ol {
+    padding: 0;
+    margin: 0;
+}
+li {
+    line-height: 24px;
+    margin-left: 44px;
+}
+li ul, li ul {
+    margin-left: 24px;
+}
+p, ul, ol {
+    font-size: 14px;
+    line-height: 20px;
+    max-width: 540px;
+}
+pre {
+    padding: 0px 24px;
+    max-width: 800px;
+    white-space: pre-wrap;    
+    background:#eee;
+}
+code {
+    font-family: Consolas, Monaco, Andale Mono, monospace;
+    line-height: 1.5;
+    font-size: 13px;
+}
+aside {
+    display: block;
+    float: right;
+    width: 390px;
+}
+blockquote {
+    border-left:.5em solid #eee;
+    padding: 0 2em;
+    margin-left:0;
+    max-width: 476px;
+}
+blockquote  cite {
+    font-size:14px;
+    line-height:20px;
+    color:#bfbfbf;
+}
+blockquote cite:before {
+    content: '\2014 \00A0';
+}
+
+blockquote p {  
+    color: #666;
+    max-width: 460px;
+}
+hr {
+    width: 540px;
+    text-align: left;
+    margin: 0 auto 0 0;
+    color: #999;
+}
+
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+  margin: 0;
+  vertical-align: baseline;
+  *vertical-align: middle;
+}
+button, input {
+  line-height: normal;
+  *overflow: visible;
+}
+button::-moz-focus-inner, input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+input[type=checkbox], input[type=radio] {
+  cursor: pointer;
+}
+/* override default chrome & firefox settings */
+input:not([type="image"]), textarea {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+label,
+input,
+select,
+textarea {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: normal;
+  margin-bottom: 18px;
+}
+input[type=checkbox], input[type=radio] {
+  cursor: pointer;
+  margin-bottom: 0;
+}
+input[type=text],
+input[type=password],
+textarea,
+select {
+  display: inline-block;
+  width: 210px;
+  padding: 4px;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  height: 18px;
+  color: #808080;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+select, input[type=file] {
+  height: 27px;
+  line-height: 27px;
+}
+textarea {
+  height: auto;
+}
+
+/* grey out placeholders */
+:-moz-placeholder {
+  color: #bfbfbf;
+}
+::-webkit-input-placeholder {
+  color: #bfbfbf;
+}
+
+input[type=text],
+input[type=password],
+select,
+textarea {
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+input[type=text]:focus, input[type=password]:focus, textarea:focus {
+  outline: none;
+  border-color: rgba(82, 168, 236, 0.8);
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+/* buttons */
+button {
+  display: inline-block;
+  padding: 4px 14px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  background-color: #0064cd;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#049cdb), to(#0064cd));
+  background-image: -moz-linear-gradient(top, #049cdb, #0064cd);
+  background-image: -ms-linear-gradient(top, #049cdb, #0064cd);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #049cdb), color-stop(100%, #0064cd));
+  background-image: -webkit-linear-gradient(top, #049cdb, #0064cd);
+  background-image: -o-linear-gradient(top, #049cdb, #0064cd);
+  background-image: linear-gradient(top, #049cdb, #0064cd);
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border: 1px solid #004b9a;
+  border-bottom-color: #003f81;
+  -webkit-transition: 0.1s linear all;
+  -moz-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  border-color: #0064cd #0064cd #003f81;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+button:hover {
+  color: #fff;
+  background-position: 0 -15px;
+  text-decoration: none;
+}
+button:active {
+  -webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+/* CSS stylesheet is based on Kevin Burke's Markdown.css project (http://kevinburke.bitbucket.org/markdowncss) */
+</style>
+</head>
+<body>
+<h2># Github学习笔记</h2>
+
+<h2>前言</h2>
+
+<p>很伤心，当自己一段时间不使用github后，自己竟然忘记了自己以前系统学习过的命令行。<br />这边花点时间重新来学习github的内容，并作对应的笔记内容。</p>
+
+<p>这种情况对自己来说还是一个比较常见的情况，所以自己也决定要好好用github来构建自己的学习体系。<br />让自己保持一个高效率的学习和工作效率。</p>
+
+<h2>资料</h2>
+
+<p><a href="http://git-scm.com/book/zh">git - 简明指南</a></p>
+
+<p><a href="http://www.worldhello.net/gotgithub/index.html">github 学习指南</a></p>
+
+<p>强烈建议先看git - 简明指南然后看github 学习指南.<br />要不然会有坑。</p>
+
+<h2>Git</h2>
+
+<h3>配置</h3>
+
+<h4>用户信息</h4>
+
+<div class="highlight"><pre lang="">$ git config --global user.name "runkingzhang"
+$ git config --global user.email <a href='mailto:runkingzhang@163.com'>runkingzhang@163.com</a>
+</pre></div>
+
+<h4>查看配置信息</h4>
+
+<div class="highlight"><pre lang="">//参看配置项的内容，设置可以查考用户信息的方式
+ git config --list 
+</pre></div>
+
+<h4>查看配置信息</h4>
+
+<div class="highlight"><pre lang="">$ git help <verb>
+$ git <verb> --help
+$ man git-<verb>
+//比如，要学习 config 命令可以怎么用，运行：
+$ git help config
+</pre></div>
+
+<h3>Git 基础</h3>
+
+<p>启动dos界面进入到对应的文件夹</p>
+
+<h4>初始化</h4>
+
+<div class="highlight"><pre lang="">git init
+</pre></div>
+
+<h4>初始化</h4>
+
+<div class="highlight"><pre lang="">$ git add *.c
+$ git add README
+$ git commit -m 'initial project version'
+</pre></div>
+
+<p>git add *.c 这不是在在版本中加入对应的文件,这边表示加入所有的c语言文件<br />git add  .  加入所有的文件<br />git add  fileName 增加对应的文件夹和文件<br />git commit -m 'initial project version' 对应的备注信息内容</p>
+
+<h4>从现有仓库克隆</h4>
+
+<p>git clone [url]<br /> url在github上面新建rep后会生成对应url</p>
+
+<div class="highlight"><pre lang="">$ git clone git://github.com/runkingzhang/helloworld.git
+//这边是生成不同的项目名称
+$ git clone git://github.com/runkingzhang/helloworld.git mygrit
+</pre></div>
+
+<h4>检查当前文件状态</h4>
+
+<p>查看状态</p>
+
+<div class="highlight"><pre lang="">git status
+</pre></div>
+
+<div class="highlight"><pre lang="追逐对应的文件">$ git add README
+git status
+//移除文件
+$ git rm grit.gemspec
+</pre></div>
+
+<p>查看你是提交文件</p>
+
+<div class="highlight"><pre lang="">git log
+//我们常用 -p 选项展开显示每次提交的内容差异，用 -2 则仅显示最近的两次更新：
+git log -p -2
+</pre></div>
+
+<p>修改最后一次提交</p>
+
+<div class="highlight"><pre lang=""> git commit --amend
+ //如下
+ $ git commit -m 'initial commit'
+$ git add forgotten_file
+$ git commit --amend
+</pre></div>
+
+<p>取消已经暂存的文件</p>
+
+<div class="highlight"><pre lang="">$ git reset HEAD benchmarks.rb
+</pre></div>
+
+<h3>远程仓库的使用</h3>
+
+<div class="highlight"><pre lang="查看远程仓库列表">git remote 
+//复制到本地
+git clone git://github.com/runkingzhang/runkingzhang.git
+git remote add [shortname] [url]：
+git remote add helloworld git://github.com/runkingzhang/runkingzhang.git
+</pre></div>
+
+<h3>远程仓库的使用</h3>
+
+<div class="highlight"><pre lang="推送到远程仓库">git remote 
+//复制到本地
+git clone git://github.com/runkingzhang/runkingzhang.git
+git remote add [shortname] [url]：
+git remote add helloworld git://github.com/runkingzhang/runkingzhang.git
+git remote show Run.Web.Library
+</pre></div>
+
+<div class="highlight"><pre lang="远程仓库的删除和重命名">//复制到本地
+远程仓库的删除和重命名
+$ git push origin master
+$ git remote rename Run.Web.Library run
+$ git remote
+</pre></div>
+
+<p>这边是查看对应的文件内容信息。</p>
+
+<h2>Github</h2>
+
+<p>这边的ssh是要提前设置的，见质料2.</p>
+
+<div class="highlight"><pre lang="使用密钥登陆github dos">ssh -T <a href='mailto:git@github.com'>git@github.com</a>
+Hi runkingzhang! You've successfully authenticated, but GitHub does not provide
+shell access.
+</pre></div>
+
+<p>新建一个项目<br />在github上面创建一个rep，如helloworld</p>
+
+<p>本地建立一个Git版本库。这个版本库可以建立在任意文件夹。</p>
+
+<div class="highlight"><pre lang="新建项目">$ mkdir helloworld
+$ cd helloworld
+$ git init  
+$ git add README.md
+$ git commit -m "README for this project."
+//此处是坑 为版本库添加名为origin的远程版本库。
+//此处的origin并不是命令行，而是github的remote（远程仓库）
+//不同的项目应该设置不同的名称，如果远程中已经存在origin会出现权限问题，更换名称即可。
+//网路上面的解决方法是不不正确的。建议好好学习git。
+$git remote add origin <a href='https://github.com/runkingzhang/helloworld'>https://github.com/runkingzhang/helloworld</a>
+$ git push -u origin master
+</pre></div>
+</body>
+</html>
+
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
