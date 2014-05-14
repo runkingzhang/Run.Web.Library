@@ -1,0 +1,8 @@
+<% if (params) { %>
+<p class='result'><%= params.a %> factorial = <%= params.result %></p>
+<% } %>
+<p>Enter a number to see it's factorial</p>
+<form name='factorial' action='/factorial' method='get'>
+A: <input type='text' name='a' />
+<input type='submit' value='Submit' />
+</form>

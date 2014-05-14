@@ -1,0 +1,7 @@
+<form method='POST' action='<%= postpath %>'>
+<% if (note) { %><input type='hidden' name='id' value='<%= note.ts %>'><% } %>
+<input type='text' name='author' value='<%= note.author %>' />
+<br/><textarea rows=5 cols=40 name='note' ><%= note.note %></textarea>
+<br/><input type='submit' value='Submit' />
+</form>
+</body></html>

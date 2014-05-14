@@ -1,0 +1,8 @@
+<% if (req.a) { %>
+<p class='result'>fibonacci <%= req.a %> = <%= req.result %></p>
+<% } %>
+<p>Enter a number to see it's fibonacci</p>
+<form name='fibonacci' action='/fibonacci' method='get'>
+A: <input type='text' name='a' />
+<input type='submit' value='Submit' />
+</form>

@@ -1,0 +1,20 @@
+<table>
+<% notes.forEach(function(note) { %>
+    <tr><td>
+        <p><%= new Date(note.ts).toString() %>:
+            by <b><%= note.author %></b></p>
+        <p><%= note.note %></p>
+    </td>
+    <td>
+        <form method='GET' action='/del'>
+            <input type='submit' value='Delete' />
+            <input type='hidden' name='id' value='<%= note._id %>'>
+        </form>
+    <br/>
+        <form method='GET' action='/edit'>
+            <input type='submit' value='Edit' />
+            <input type='hidden' name='id' value='<%= note._id %>'>
+        </form>
+    </td></tr>
+<% }); %>
+</table>

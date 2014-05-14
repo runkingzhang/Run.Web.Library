@@ -1,0 +1,8 @@
+<% if (params) { %>
+<p class='result'>fibonacci <%= params.a %> = <%= params.result %></p>
+<% } %>
+<p>Enter a number to see it's fibonacci</p>
+<form name='fibonacci' action='/fibonacci' method='get'>
+A: <input type='text' name='a' />
+<input type='submit' value='Submit' />
+</form>
