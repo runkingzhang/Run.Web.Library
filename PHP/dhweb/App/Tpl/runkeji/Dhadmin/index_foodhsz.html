@@ -1,0 +1,299 @@
+<!--后台菜式回收站列表-->
+<script>
+Ext.onReady(function(){
+
+	var sm = new Ext.grid.CheckboxSelectionModel();
+
+    // create the Data Store
+    var ds = new Ext.data.Store({
+    proxy: new Ext.data.HttpProxy({
+            url: '../dhadmin_appfood_foodhsz/',
+			failure : function(response,options){ 
+			alert(json2str(response));
+				Ext.Msg.alert('提示','获取内容失败！'+response.status); 
+			}
+        }),
+        // create reader that reads the Topic records
+        reader: new Ext.data.JsonReader({
+            root: 'results',
+            totalProperty: 'total',
+            id: 'id'
+        }, [
+            {name: 'id', mapping: 'id'},
+            {name: 'title', mapping: 'title'},
+            {name: 'pname', mapping: 'pname'},
+            {name: 'flag', mapping: 'flag'},
+            {name: 'order_times', mapping: 'order_times'},
+            {name: 'order_times_r', mapping: 'order_times_r'},
+            {name: 'click', mapping: 'click'},
+            {name: 'price', mapping: 'price'},
+            {name: 'rank', mapping: 'rank'}
+        ]),
+
+        // turn on remote sorting
+        remoteSort: true
+    });
+    ds.setDefaultSort('id', 'desc');
+
+    var cm = new Ext.grid.ColumnModel([
+		sm,
+		{
+           header: "ID",
+           dataIndex: 'id',
+           width: 30,
+		   sortable:true
+        },{
+           header: "标题",
+           dataIndex: 'title',
+           width: 120
+        },{
+           header: "所属分类",
+           dataIndex: 'pname',
+           width: 60 
+        },{
+           header: "属性",
+           dataIndex: 'flag',
+           width: 70,
+           align: 'right',
+		   renderer: function (value, p, record) {
+		   	if( value =='') return '无';
+		   		value =  value.replace('p','[图片]');
+				value =  value.replace('c','[推荐]');
+				value =  value.replace('t','[置顶]');
+				value =  value.replace('f','[特价]');
+				value =  value.replace('a','[特荐]');
+				value =  value.replace('h','[头条]');
+				value =  value.replace('b','[加粗]');
+				value =  value.replace(',','');
+				return value;
+        		//return String.format('{0}', value);
+    		}
+        },{
+           header: "价格",
+           dataIndex: 'price',
+           width: 50,
+           align: 'right',
+		   sortable:true
+        },{
+           header: "点击数",
+           dataIndex: 'click',
+           width: 50,
+           align: 'right',
+		   sortable:true
+        },{
+           header: "真实销量",
+           dataIndex: 'order_times_r',
+           width: 50,
+           align: 'right',
+		   sortable:true
+        },{
+           header: "销量",
+           dataIndex: 'order_times',
+           width: 50,
+           align: 'right',
+		   sortable:true
+        },{
+           header: "默认排序",
+           dataIndex: 'rank',
+           width: 50,
+           align: 'right',
+		   sortable:true
+        }
+        ]);
+
+    // by default columns are sortable
+    cm.defaultSortable = true;
+
+    var grid = new Ext.grid.GridPanel({
+        el:'index_food_hsz_20110409',
+      	width: Ext.get("i3_center").getWidth(), 
+		height: Ext.get("i3_center").getHeight()-30,
+		//width:800,
+		//height:400,
+		autoScroll:true,
+        store: ds,
+        cm: cm,
+		frame:true,
+        trackMouseOver:false,
+        sm:sm,
+        loadMask: true,
+		// inline toolbars,
+		tbar: [{
+				 text : '还原所选',            
+				 handler : function() {
+					if(grid.getSelectionModel().getSelected() == undefined){
+						alert('请先点击选择要还原的菜式！');
+						return false;
+					}
+					Ext.Msg.confirm('确认','您确认要还原这些项吗？',function(btn){
+						if(btn=='yes'){
+							var sm_arr = grid.getSelectionModel().getSelections();
+							var id_arr= [];
+							delete sm_arr['remove'];
+							for(var i in sm_arr){
+								if(sm_arr[i].id){
+									id_arr[i]=sm_arr[i].id;
+									//alert(sm_arr[i].id);
+								 }
+							 }
+							//alert(Ext.encode(id_arr));
+							Ext.Ajax.request({
+								method:'POST',
+								url:'../dhadmin_appfood_foodredel/',
+								success:function(response){
+									rs = Ext.decode(response.responseText);
+									if(rs.success){
+										Ext.Msg.alert('提示','还原成功',function(){ds.reload();grid.getView().refresh();})
+									}else{
+										Ext.Msg.alert('删除失败',rs.msg);
+									}
+								},
+								failure:function(response){
+									Ext.Msg.alert('删除失败','网络错误！');
+								},
+								params:{ids:Ext.encode(id_arr)}
+							});
+						}
+					});
+				}
+			 },{
+				 text : '彻底删除所选',
+				 iconCls : 'silk-delete',
+				 handler : function() {
+					if(grid.getSelectionModel().getSelected() == undefined){
+						alert('请先点击选择要删除的记录！');
+					}else{
+						Ext.Msg.confirm('确认','您确认要彻底删除该项吗？',function(btn){
+							if(btn=='yes'){
+								Ext.Ajax.request({
+									method:'POST',
+									url:'../dhadmin_appfood_foodIsdel/',
+									success:function(response){
+										rs = Ext.decode(response.responseText);
+										if(rs.success){
+											Ext.Msg.alert('提示','彻底删除成功！',function(){ds.reload();grid.getView().refresh();})
+										}else{
+											Ext.Msg.alert('彻底删除失败',rs.msg);
+										}
+									},
+									failure:function(response){
+										Ext.Msg.alert('删除失败','网络错误！');
+									},
+									params:{id:grid.getSelectionModel().getSelected().id}
+								});
+							}
+						});
+					}
+				}
+			 }/*, '-', {
+				 text : '全选',
+				 iconCls : 'pdf'
+			 }, {
+				 text : '反选',
+				 iconCls : 'excel'
+			 }*/],
+        viewConfig: {
+            forceFit:true,
+            enableRowBody:true,
+            showPreview:false,
+            getRowClass : function(record, rowIndex, p, ds){
+                if(this.showPreview){
+                    p.body = '<p>id is '+record.id+'</p>';
+                    return 'x-grid3-row-expanded';
+                }
+                return 'x-grid3-row-collapsed';
+            }
+        },
+        bbar: new Ext.PagingToolbar({
+            pageSize: 20,
+            store: ds,
+            displayInfo: true,
+            displayMsg: '当前显示 结果{0} - {1} ，共有{2}个结果',
+            emptyMsg: "该列表没有内容可以显示"/*,
+            items:[
+                '-',{
+                pressed: true,
+                enableToggle:true,
+                text: 'Show Preview',
+                cls: 'x-btn-text-icon details',
+                toggleHandler: toggleDetails
+            }]*/
+        })
+    });
+
+    // render it
+    grid.render();
+
+    // trigger the data store load
+    ds.load({params:{start:0, limit:20}});
+	
+	//右键菜单
+	var youjian = new Ext.menu.Menu({
+		items:[{
+			text:'还原',
+			handler:function(){
+				Ext.Msg.confirm('确认','您确认要还原该项吗？',function(btn){
+					if(btn=='yes'){
+						Ext.Ajax.request({
+							method:'POST',
+							url:'../dhadmin_appfood_foodredel/',
+							success:function(response){
+								rs = Ext.decode(response.responseText);
+								if(rs.success){
+									Ext.Msg.alert('提示','还原成功！',function(){ds.reload();grid.getView().refresh();})
+								}else{
+									Ext.Msg.alert('还原失败',rs.msg);
+								}
+							},
+							failure:function(response){
+								Ext.Msg.alert('还原失败','网络错误！');
+							},
+							params:{ids:'["'+grid.getSelectionModel().getSelected().id+'"]'}
+						});
+					}
+				});
+			}
+		},{
+			text:'彻底删除',
+			iconCls : 'silk-delete',
+			handler:function(){
+				Ext.Msg.confirm('确认','您确认要彻底删除该项吗？',function(btn){
+					if(btn=='yes'){
+						Ext.Ajax.request({
+							method:'POST',
+							url:'../dhadmin_appfood_foodIsdel/',
+							success:function(response){
+								rs = Ext.decode(response.responseText);
+								if(rs.success){
+									Ext.Msg.alert('提示','彻底删除成功！',function(){ds.reload();grid.getView().refresh();})
+								}else{
+									Ext.Msg.alert('彻底删除失败',rs.msg);
+								}
+							},
+							failure:function(response){
+								Ext.Msg.alert('删除失败','网络错误！');
+							},
+							params:{id:grid.getSelectionModel().getSelected().id}
+						});
+					}
+				});
+			}
+		}]
+	})
+
+	grid.on('rowcontextmenu',function(grid,rowIndex,e){
+		e.preventDefault();
+		grid.getSelectionModel().selectRow(rowIndex);
+		youjian.showAt(e.getXY());	
+	});
+	
+    function toggleDetails(btn, pressed){
+        var view = grid.getView();
+        //view.showPreview = pressed;
+        view.refresh();
+    }
+	
+
+});
+</script>
+<div id="index_food_hsz_20110409"></div>

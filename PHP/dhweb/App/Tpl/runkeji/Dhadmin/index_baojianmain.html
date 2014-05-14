@@ -1,0 +1,448 @@
+<!--后台订餐包间管理列表-->
+<script>
+Ext.onReady(function(){
+	var sm = new Ext.grid.CheckboxSelectionModel({singleSelect:true});
+
+    // create the Data Store
+    var ds = new Ext.data.Store({
+    proxy: new Ext.data.HttpProxy({
+            url: '../dhadmin_appbaojian_mana/',
+			failure : function(response,options){ 
+			alert(json2str(response));
+				Ext.Msg.alert('提示','获取内容失败！'+response.status); 
+			} 
+        }),
+        // create reader that reads the Topic records
+        reader: new Ext.data.JsonReader({
+            root: 'results',
+            totalProperty: 'total',
+            id: 'id'
+        }, [
+            {name: 'id', mapping: 'id'},
+            {name: 'title', mapping: 'title'},
+            {name: 'order_times', mapping: 'order_times'},
+            {name: 'rank', mapping: 'rank'}
+        ]),
+        // turn on remote sorting
+        remoteSort: true
+    });
+	ds.on("beforeload", function(){
+		this.baseParams = {
+			 title : Ext.get('index_dingcan_main_20110915_grid_sj_name').dom.value,
+			 limit:20
+		}
+	});
+    ds.setDefaultSort('rank', 'desc');
+
+    var cm = new Ext.grid.ColumnModel([
+		sm,
+		{
+           header: "ID",
+           dataIndex: 'id',
+           width: 30,
+		   sortable:true
+        },{
+           header: "标题",
+           dataIndex: 'title',
+           width: 120
+        },{
+           header: "预定数",
+           dataIndex: 'order_times',
+           width: 50,
+           align: 'right',
+		   sortable:true
+        },{
+           header: "默认排序",
+           dataIndex: 'rank',
+           width: 50,
+           align: 'right',
+		   sortable:true
+        }
+        ]);
+
+    // by default columns are sortable
+    cm.defaultSortable = true;
+
+    var grid = new Ext.grid.GridPanel({
+        el:'index_dingcan_main_20110915',
+      	width: Ext.get("i3_center").getWidth(), 
+		height: Ext.get("i3_center").getHeight()-30,
+		//width:800,
+		//height:400,
+		autoScroll:true,
+        store: ds,
+        cm: cm,
+		frame:true,
+        trackMouseOver:false,
+        sm:sm,
+        loadMask: true,
+		// inline toolbars,
+		 tbar : ['包间标题',
+		 {
+			xtype　:　'textfield',
+			id:　'index_dingcan_main_20110915_grid_sj_name',
+			width　:　120
+		},'-',new　Ext.Toolbar.TextItem("&nbsp;&nbsp;&nbsp;&nbsp;"),
+			{
+             text : '查询',
+             iconCls : 'silk-query',
+             handler : function() {
+                ds.reload({params:{start:0}});
+				grid.getView().refresh();
+             }
+         }],
+		listeners : {
+			'render' : function() {
+         	var tbar = new Ext.Toolbar({
+                     items : [{
+                                 text : '新增包间',
+                                 iconCls : 'silk-add',
+								 handler : function() {
+									addform();
+								}
+                             }, {
+                                 text : '编辑所选',                                 
+								 iconCls : 'silk-edit',
+								 handler : function() {
+									if(grid.getSelectionModel().getSelected() == undefined){
+										alert('请先点击选择要编辑的包间！');
+									}else{
+										editform(grid.getSelectionModel().getSelected().id);
+									}
+								}
+                             }, {
+                                 text : '删除所选',
+                                 iconCls : 'silk-delete',
+								 handler : function() {
+									if(grid.getSelectionModel().getSelected() == undefined){
+										alert('请先点击选择要删除的包间！');
+									}else{
+										Ext.Msg.confirm('确认','您确认要删除该项吗？',function(btn){
+											if(btn=='yes'){
+												//alert('删除id：'+treegrid._sid);
+												Ext.Ajax.request({
+													method:'POST',
+													url:'../dhadmin_appbaojian_roomDel/',
+													success:function(response){
+														rs = Ext.decode(response.responseText);
+														if(rs.success){
+															Ext.Msg.alert('提示','删除成功！',function(){ds.reload();grid.getView().refresh();})
+														}else{
+															Ext.Msg.alert('删除失败',rs.msg);
+														}
+													},
+													failure:function(response){
+														Ext.Msg.alert('删除失败','网络错误！');
+													},
+													params:{id:grid.getSelectionModel().getSelected().id}
+												});
+											}
+										});
+									}
+								}
+                             }/*, '-', {
+                                 text : '全选',
+                                 iconCls : 'pdf'
+                             }, {
+                                 text : '反选',
+                                 iconCls : 'excel'
+                             }*/]
+                 });
+         tbar.render(grid.tbar);
+			}
+		},
+
+        viewConfig: {
+            forceFit:true,
+            enableRowBody:true,
+            showPreview:false,
+            getRowClass : function(record, rowIndex, p, ds){
+                if(this.showPreview){
+                    p.body = '<p>id is '+record.id+'</p>';
+                    return 'x-grid3-row-expanded';
+                }
+                return 'x-grid3-row-collapsed';
+            }
+        },
+        bbar: new Ext.PagingToolbar({
+            pageSize: 20,
+            store: ds,
+            displayInfo: true,
+            displayMsg: '当前显示 结果{0} - {1} ，共有{2}个结果',
+            emptyMsg: "该列表没有内容可以显示"/*,
+            items:[
+                '-',{
+                pressed: true,
+                enableToggle:true,
+                text: 'Show Preview',
+                cls: 'x-btn-text-icon details',
+                toggleHandler: toggleDetails
+            }]*/
+        })
+    });
+
+    // render it
+    grid.render();
+
+    // trigger the data store load
+    ds.load({params:{start:0, limit:20}});
+	
+	//右键菜单
+	var youjian = new Ext.menu.Menu({
+		items:[{
+			text:'编辑',
+			handler:function(){
+				//Ext.Msg.alert(grid.getSelectionModel().getSelected().id); 
+				editform(grid.getSelectionModel().getSelected().id);
+				//alert(treegrid._sid );
+			}
+		},{
+			text:'前台预览',
+			handler:function(){
+				window.open(_SYSCFG_I+'appbaojian_view_id_'+grid.getSelectionModel().getSelected().id);
+			}
+		},{
+			text:'删除',
+			iconCls : 'silk-delete',
+			handler:function(){
+				Ext.Msg.confirm('确认','您确认要删除该项吗？',function(btn){
+					if(btn=='yes'){
+						//alert('删除id：'+treegrid._sid);
+						Ext.Ajax.request({
+							method:'POST',
+							url:'../dhadmin_appbaojian_roomDel/',
+							success:function(response){
+								rs = Ext.decode(response.responseText);
+								if(rs.success){
+									Ext.Msg.alert('提示','删除成功！',function(){ds.reload();grid.getView().refresh();})
+								}else{
+									Ext.Msg.alert('删除失败',rs.msg);
+								}
+							},
+							failure:function(response){
+								Ext.Msg.alert('删除失败','网络错误！');
+							},
+							params:{id:grid.getSelectionModel().getSelected().id}
+						});
+					}
+				});
+			}
+		}]
+	})
+
+	grid.on('rowcontextmenu',function(grid,rowIndex,e){
+		e.preventDefault();
+		grid.getSelectionModel().selectRow(rowIndex);
+		youjian.showAt(e.getXY());	
+	});
+	
+    function toggleDetails(btn, pressed){
+        var view = grid.getView();
+        //view.showPreview = pressed;
+        view.refresh();
+    }
+
+	//新增包间
+	function addform(){
+			var add_tab  = new Ext.FormPanel({
+			url:"../dhadmin_appbaojian_insert/",
+			method:"post",
+			height:200,
+			fileUpload:true,
+			border:false,
+			items: {
+				xtype:'tabpanel',
+				activeTab: 0,
+				defaults:{autoHeight:true,labelWidth:80, bodyStyle:'padding:10px'}, 
+				items:[{
+					title:'基本信息',
+					layout:'form',
+					//defaults: {width: 230},
+					//defaultType: 'textfield',
+					items:[{
+						name:"title",
+						fieldLabel:"包间标题",
+						allowBlank : false, 
+						xtype:'textfield',
+						width:290,
+						blankText : '请输入标题'
+					},{
+						inputType : "file",
+						fieldLabel: '包间图片',
+						name: 'imageupload',                       
+						xtype: 'textfield',
+						anchor: '40%',
+						allowBlank : false
+					},{
+						name:"rank",
+						fieldLabel:"排序",
+						xtype:'numberfield'
+					}]
+				}]
+			},
+			buttons: [{
+				text:"提交",
+				width:100,
+				handler:function(){
+					if(add_tab.form.isValid()){
+						add_tab.getForm().submit({
+							clientValidation:true,//进行客户端验证   
+							waitMsg : '数据提交中',//提示信息   
+							waitTitle : '提示',//标题   
+							progress : true, 
+							success:function(form,action){
+								if(action.result.success){
+									Ext.Msg.alert("成功","保存成功",function(){add_window.close();ds.reload();grid.getView().refresh()});
+								}else{
+									Ext.Msg.alert('数据保存失败',action.result.msg);
+								}
+							},
+							failure:function(form,action){
+								Ext.Msg.alert("失败","对不起，数据保存失败！提示："+action.result.msg);
+							}					
+						});
+					}else{
+						//Ext.MessageBox.alert("","验证失败");
+					}
+				}
+			},{
+				text:"重置",
+				width:100,
+				handler:function(){
+					add_tab.getForm().reset();
+				}
+			}]
+		});	
+		add_window =new Ext.Window({
+			title:"新增包间",
+			width:500,
+			//height:450,
+			autoHeight:true,
+			modal:true,
+			listeners:{
+				close : function (){
+					if(KE.g['room_add_content']!=undefined){
+						KE.remove('room_add_content');
+					}
+				}
+			},
+			//height:auto,
+			//autoScroll:true,
+			bodyStyle:"padding:5px" ,
+			items:[add_tab]
+		}).show(Ext.get("index_dingcan_main_20110915"));
+	}
+	
+	//编辑包间
+	function editform(edit_id){
+		var edit_tab  = new Ext.FormPanel({
+			url:"../dhadmin_appbaojian_roomedit/",
+			method:"post",
+			height:200,
+			fileUpload:true,
+			reader: new Ext.data.JsonReader({successProperty: 'success',root: 'info'},['id','title','rank']), 
+			border:false,
+			items: {
+				xtype:'tabpanel',
+				activeTab: 0,
+				defaults:{autoHeight:true,labelWidth:80, bodyStyle:'padding:10px'}, 
+				items:[{
+					title:'基本信息',
+					layout:'form',
+					//defaults: {width: 230},
+					//defaultType: 'textfield',
+					items:[{
+						xtype:"hidden",
+						name:"id",
+						hidden:true,
+						hiddenLabel:true,
+						allowBlank:false
+					},{
+						name:"title",
+						fieldLabel:"包间标题",
+						allowBlank : false, 
+						xtype:'textfield',
+						width:290,
+						blankText : '请输入标题'
+					},{
+						inputType : "file",
+						fieldLabel: '包间图片',
+						name: 'imageupload',                       
+						xtype: 'textfield',
+						anchor: '40%'
+					},{
+						name:"rank",
+						fieldLabel:"排序",
+						xtype:'numberfield'
+					}]
+				}]
+			},
+			buttons: [{
+				text:"提交",
+				width:100,
+				handler:function(){
+					if(edit_tab.form.isValid()){
+						edit_tab.getForm().submit({
+							clientValidation:true,//进行客户端验证   
+							waitMsg : '数据提交中',//提示信息   
+							waitTitle : '提示',//标题   
+							progress : true, 
+							success:function(form,action){
+								if(action.result.success){
+									Ext.Msg.alert("成功","保存成功",function(){edit_window.close();ds.reload();grid.getView().refresh()});
+								}else{
+									Ext.Msg.alert('数据保存失败',action.result.msg);
+								}
+							},
+							failure:function(form,action){
+								Ext.Msg.alert("失败","对不起，数据保存失败！提示："+action.result.msg);
+							}
+						});
+					}else{
+						//Ext.MessageBox.alert("","验证失败");
+					}
+				}
+			},{
+				text:"返回",
+				width:100,
+				handler:function(){
+					edit_window.close();
+				}
+			}]
+		});
+		edit_tab_load();
+		function edit_tab_load(){
+			edit_tab.getForm().load({
+				url:'../dhadmin_appbaojian_roomfindJson/?id='+edit_id,
+				nocache: true,
+				//waitTitle:'加载数据',
+				//waitMsg:'Loading',
+				success : function(form, action){
+					edit_tab.getForm().findField('_flag').setValue(action.result.data.flag);
+					KE.html('room_edit_content',action.result.data.content);
+				}
+			}); 
+		}
+		var edit_window = new Ext.Window({
+			title:"编辑包间",
+			width:500,
+			//height:450,
+			autoHeight:true,
+			modal:true,
+			listeners:{
+				close : function (){
+					if(KE.g['room_edit_content']!=undefined){
+						KE.remove('room_edit_content');
+					}
+				}
+			},
+			//height:auto,
+			//autoScroll:true,
+			bodyStyle:"padding:5px" ,
+			items:[edit_tab]
+		}).show(Ext.get("index_dingcan_main_20110915"));						
+	}
+
+});
+</script>
+<div id="index_dingcan_main_20110915"></div>

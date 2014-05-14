@@ -1,0 +1,26 @@
+<?php
+return array (
+  0 => 'id',
+  1 => 'aid',
+  2 => 'uid',
+  3 => 'title',
+  4 => 'color',
+  5 => 'des',
+  6 => 'keywords',
+  7 => 'flag',
+  8 => 'img_url',
+  9 => 'img2',
+  10 => 'img3',
+  11 => 'rank',
+  12 => 'body',
+  13 => 'writer',
+  14 => 'source',
+  15 => 'click',
+  16 => 'pubdate',
+  17 => 'editdate',
+  18 => 'tmp_url',
+  19 => 'status',
+  '_autoinc' => true,
+  '_pk' => 'id',
+);
+?>

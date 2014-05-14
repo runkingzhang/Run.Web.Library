@@ -1,0 +1,197 @@
+<!--后台广告位设置-->
+<script>
+Ext.onReady(function(){
+	var plusad_tab  = new Ext.FormPanel({
+		url:"../dhadmin_plusad_edit/",
+		method:"post",
+		renderTo:'Index_plusmain_20110323',
+      	width: Ext.get("i3_center").getWidth(), 
+		height: Ext.get("i3_center").getHeight()-30,
+		reader: new Ext.data.JsonReader({successProperty:'success',root: 'info'},['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10','p11','p12','p13','p14','p15','p16','p17']), 
+		border:false,
+		buttonAlign : 'center',
+			items: {
+				xtype:'tabpanel',
+				activeTab: 0,
+				defaults:{labelWidth:150, bodyStyle:'padding:10px'}, 
+				items:[{
+					title:'基本内容',
+					layout:'form',
+					forcefit:true,
+					defaults: {width: 400},
+					defaultType: 'textfield',
+					//autoHeight:true,
+					height:Ext.get("i3_center").getHeight()-100,
+					autoScroll:true,
+					items:[{
+						name:"p1",
+						fieldLabel:"首页价格信息1",
+						allowBlank : false, 
+						blankText : '不得为空'
+					},{
+						name:"p2",
+						fieldLabel:"首页价格信息2",
+						allowBlank : false, 
+						blankText : '不得为空'
+					},{
+						name:"p3",
+						fieldLabel:"首页价格信息3",
+						allowBlank : false, 
+						blankText : '不得为空'
+					},{
+						name:"p4",
+						fieldLabel:"首页价格信息4",
+						allowBlank : false, 
+						blankText : '不得为空'
+					},{
+						name:"p5",
+						fieldLabel:"首页价格信息5",
+						allowBlank : false, 
+						blankText : '不得为空'
+					},{
+						name:"p6",
+						fieldLabel:"首页价格信息6",
+						allowBlank : false, 
+						blankText : '不得为空'
+					},{
+						name:"p7",
+						fieldLabel:"首页价格信息7",
+						allowBlank : false, 
+						blankText : '不得为空'
+					},{
+						name:"p8",
+						fieldLabel:"首页价格信息8",
+						allowBlank : false, 
+						blankText : '不得为空'
+					},{
+						name:"p9",
+						fieldLabel:"首页价格信息9",
+						allowBlank : false, 
+						blankText : '不得为空'
+					},{
+						name:"p10",
+						fieldLabel:"首页价格信息10",
+						allowBlank : false, 
+						blankText : '不得为空'
+					},{
+						name:"p11",
+						fieldLabel:"首页价格信息11",
+						allowBlank : false, 
+						blankText : '不得为空'
+					},{
+						name:"p12",
+						fieldLabel:"首页价格信息12",
+						allowBlank : false, 
+						blankText : '不得为空'
+					},{
+						name:"p13",
+						fieldLabel:"首页价格信息13",
+						allowBlank : false, 
+						blankText : '不得为空'
+					},{
+						name:"p14",
+						fieldLabel:"首页价格信息14",
+						allowBlank : false, 
+						blankText : '不得为空'
+					},{
+						name:"p15",
+						fieldLabel:"首页价格信息15",
+						allowBlank : false, 
+						blankText : '不得为空'
+					},{
+						name:"p16",
+						fieldLabel:"首页价格信息16",
+						allowBlank : false, 
+						blankText : '不得为空'
+					},{
+						name:"p17",
+						fieldLabel:"首页价格信息17",
+						allowBlank : false, 
+						blankText : '不得为空'
+					}]
+				}/*,{
+					title:'商家信息',
+					layout:'form',
+					height:Ext.get("i3_center").getHeight()-100,
+					defaultType: 'textfield',
+					defaults: {width: 400},
+					items: [{
+						fieldLabel: '公司名',
+						name: 'coname'
+					},{
+						fieldLabel: '地址',
+						name: 'address'
+					},{
+						fieldLabel: '电话1',
+						name: 'tel'
+					},{
+						fieldLabel: '电话2',
+						name: 'tel2'
+					},{
+						fieldLabel: '电话3',
+						name: 'tel3'
+					},{
+						fieldLabel: '电话4',
+						name: 'tel4'
+					},{
+						fieldLabel: 'QQ',
+						name: 'qq'
+					},{
+						fieldLabel: '说明',
+						name: 'about'
+					}]
+				}*/]
+			},
+		buttons: [
+		{
+			text:"保  存",
+			width:100,
+			handler:function(){
+				if(plusad_tab.form.isValid()){
+					plusad_tab.getForm().submit({
+						clientValidation:true,//进行客户端验证   
+						waitMsg : '数据提交中',//提示信息   
+						waitTitle : '提示',//标题   
+						progress : true, 
+						success:function(form,action){
+							if(action.result.success){
+								Ext.Msg.alert("成功","保存成功",function(){ });
+							}else{
+								Ext.Msg.alert('数据保存失败',action.result.msg);
+							}
+						},
+						failure:function(form,action){
+							Ext.Msg.alert("失败","对不起，数据保存失败！提示："+action.result.msg);
+						}					
+					});
+				}else{
+					//Ext.MessageBox.alert("","验证失败");
+				}
+			}
+		},{
+			text:"重  置",
+			width:100,
+			handler:function(){
+				plusad_tab_load();
+			}
+		}]
+	});
+	plusad_tab_load();
+	function plusad_tab_load(){
+		plusad_tab.getForm().load({
+			url:'../dhadmin_plusad_selectJson/',
+			nocache: true,
+			success : function(form, action){
+				//alert('成功');
+				//alert(Ext.encode(action.data.admin_email));
+			},
+			failure:function(form,action){
+				//alert('失败');
+				//alert(Ext.encode(action.data.admin_email));
+			}
+		}); 
+	}
+
+});
+</script>
+<div id="Index_plusmain_20110323"></div>

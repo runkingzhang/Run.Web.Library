@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>跳转页面</title>
+<script type="text/javascript" language="javascript" src="{{$syscfg.root}}mtr/artDialog3.0.5/artDialog.min.js"></script>
+<script>
+(function($){
+	// 改变默认配置
+	var d = $.dialog.defaults;
+	// 预缓存皮肤，数组第一个为默认皮肤
+	d.skin = ['aero'/*,'facebook', 'chrome'*/];
+	// 是否开启特效
+	d.effect = true;
+	// 指定超过此面积的对话框拖动的时候用替身
+	d.showTemp = 100000;
+})(art);
+art.dialog({
+	content: '{{$j.msg}}',
+	skin: 'aero',
+	icon: 'alert',
+	//follow: 'food_cart_ttnums',
+	yesText:'{{$j.yestext}}',
+	noText:'关闭页面',
+	yesFn: function(){
+		location.href='{{$syscfg.i}}{{$j.url}}';
+		return false;
+	},
+	noFn: function(){
+		window.close();
+		location.href='../';
+	}
+});	
+</script>
+</head>
+<body>
+</body>
+</html>

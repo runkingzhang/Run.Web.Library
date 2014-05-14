@@ -1,0 +1,434 @@
+<!--后台订餐包间订单管理列表-->
+<script>
+Ext.onReady(function(){	
+	var sm = new Ext.grid.CheckboxSelectionModel({singleSelect:true});
+    // create the Data Store
+    var ds = new Ext.data.Store({
+    proxy: new Ext.data.HttpProxy({
+            url: '../dhadmin_appbaojian_orderselect/',
+			failure : function(response,options){
+			//alert(json2str(response));
+				Ext.Msg.alert('提示','获取内容失败！'+response.status); 
+			} 
+        }),
+        // create reader that reads the Topic records
+        reader: new Ext.data.JsonReader({
+            root: 'results',
+            totalProperty: 'total',
+            id: 'id'
+        }, [
+            {name: 'id', mapping: 'id'},
+            {name: 'name', mapping: 'name'},
+            {name: 'status', mapping: 'status'},
+            {name: 'pubdate', mapping: 'pubdate'},
+            {name: 'phone', mapping: 'phone'},
+            {name: 'lunsup', mapping: 'lunsup'},
+            {name: 'isread', mapping: 'isread'}
+        ]),
+        // turn on remote sorting
+        remoteSort: true
+    });
+    ds.setDefaultSort('id', 'desc');
+    var cm = new Ext.grid.ColumnModel([
+		sm,
+		{
+           header: "ID",
+           dataIndex: 'id',
+           width: 30,
+		   sortable:true
+        },{
+           header: "客户称呼",
+           dataIndex: 'name',
+           width: 50,
+		   renderer: function (value, p, record) {
+		   	if( record.data["isread"] ==-1) {
+				value =  '<font color=red >[新]</font>'+value;
+			}
+			return value;
+    		}
+        },{
+           header: "订单状态",
+           dataIndex: 'status',
+           width: 50,
+           align: 'center',
+		   renderer: function (value, p, record) {
+		   	if( value =='') return '无';
+		   		value =  value.replace('1','<font color=red >未处理</font>');
+				value =  value.replace('2','<font color=#006600 >确认预定</font>');
+				value =  value.replace('3','关闭');
+				return value;
+        		//return String.format('{0}', value);
+    		}
+        },{
+           header: "下单时间",
+           dataIndex: 'pubdate',
+           width: 70,
+           align: 'center',
+			renderer : function(value) {
+		   //alert(value);
+				if (value == null || value == 0) {
+				return 'null'
+				} else {
+				return Ext.util.Format.date(new Date(parseInt(value)*1000),'Y-m-d H:i:s')
+				}
+			}
+        },{
+           header: "手机",
+           dataIndex: 'phone',
+           width: 70,
+           align: 'center'
+        },{
+           header: "类型",
+           dataIndex: 'lunsup',
+           width: 50,
+           align: 'right',
+		   renderer: function (value, p, record) {
+		   	if( value =='') return '无';
+		   		value =  value.replace('1','午餐');
+				value =  value.replace('2','晚餐');
+				return value;
+        		//return String.format('{0}', value);
+    		}
+        }
+        ]);
+
+    // by default columns are sortable
+    cm.defaultSortable = true;
+
+    var grid = new Ext.grid.GridPanel({
+        //el:'index_dingcanorder_20110915',
+      	width: Ext.get("i3_center").getWidth()-400,
+		height: Ext.get("i3_center").getHeight()-30,
+		//width:800,
+		autoScroll:true,
+		region:"center",
+		//border:false,
+        //title:'订单管理',
+        store: ds,
+        cm: cm,
+		frame:true,
+        trackMouseOver:false,
+        sm:sm,
+        loadMask: true,
+		// inline toolbars,
+		 tbar : ['订单ID',
+		 {
+			xtype　:　'textfield',
+			id:　'index_roomorder_id_20110406',
+			width　:　120
+		},'预定日期',{
+			name:"orderdate",
+			fieldLabel:"预定日期",
+			id:　'index_roomorder_orderdate_20110406',
+			xtype:'datefield',
+			format:"Y-m-d"
+		},'-',
+		'类型',{
+		xtype:'combo',
+		hiddenName:"index_roomorder_lunsup_20110406",
+		fieldLabel:"订单状态",
+		forceSelection: true,
+		width:100,
+		store: new Ext.data.SimpleStore({
+					fields: ['text', 'value'],
+                    data : [['不限',''],['午餐','1'],['晚餐','2']]
+                }),
+		valueField:'value',
+		displayField:'text',
+		typeAhead: true,
+		mode: 'local',
+		triggerAction: 'all',
+		selectOnFocus:true,
+		editable :false,
+		emptyText:"午餐or晚餐"
+	},'-',
+		'状态',{
+		xtype:'combo',
+		hiddenName:"index_roomorder_status_20110406",
+		fieldLabel:"订单状态",
+		forceSelection: true,
+		width:100,
+		store: new Ext.data.SimpleStore({
+					fields: ['text', 'value'],
+                    data : [['不限',''],['未处理','1'],['确认预定','2'],['已关闭','3']]
+                }),
+		valueField:'value',
+		displayField:'text',
+		typeAhead: true,
+		mode: 'local',
+		triggerAction: 'all',
+		selectOnFocus:true,
+		editable :false,
+		emptyText:"订单状态"
+	},new　Ext.Toolbar.TextItem("&nbsp;&nbsp;&nbsp;&nbsp;"),
+			{
+             text : '查询',
+             iconCls : 'silk-query',
+             handler : function() {
+                ds.reload({params:{start:0}});
+				grid.getView().refresh();
+             }
+         }],
+		listeners : {
+			click:function(){
+				//alert(grid.getSelectionModel().getSelected().id);
+				//view_order(grid.getSelectionModel().getSelected().id);
+			},
+			dblclick:function(){
+				//alert(grid.getSelectionModel().getSelected().id);
+				view_order(grid.getSelectionModel().getSelected().id);
+			},
+			contextmenu:function(node,event){
+			
+			},
+			'render' : function() {
+         	var tbar = new Ext.Toolbar({
+                     items : [ {
+                                 text : '查看所选',                                 
+								 iconCls : 'silk-edit',
+								 handler : function() {
+									if(grid.getSelectionModel().getSelected() == undefined){
+										alert('请先点击选择要查看的订单！');
+									}else{
+										view_order(grid.getSelectionModel().getSelected().id);
+									}
+								}
+                             }, {
+                                 text : '删除所选',
+                                 iconCls : 'silk-delete',
+								 handler : function() {
+									if(grid.getSelectionModel().getSelected() == undefined){
+										alert('请先点击选择要删除的订单！');
+									}else{
+										Ext.Msg.confirm('确认','您确认要删除该项吗？',function(btn){
+											if(btn=='yes'){
+												//alert('删除id：'+treegrid._sid);
+												Ext.Ajax.request({
+													method:'POST',
+													url:'../dhadmin_appbaojian_orderDel/',
+													success:function(response){
+														rs = Ext.decode(response.responseText);
+														if(rs.success){
+															Ext.Msg.alert('提示','删除成功！',function(){ds.reload();grid.getView().refresh();})
+														}else{
+															Ext.Msg.alert('删除失败',rs.msg);
+														}
+													},
+													failure:function(response){
+														Ext.Msg.alert('删除失败','网络错误！');
+													},
+													params:{id:grid.getSelectionModel().getSelected().id}
+												});
+											}
+										});
+									}
+								}
+                             }/*, '-', {
+                                 text : '全选',
+                                 iconCls : 'pdf'
+                             }, {
+                                 text : '反选',
+                                 iconCls : 'excel'
+                             }*/]
+                 });
+         tbar.render(grid.tbar);
+			}
+		},
+        viewConfig: {
+            forceFit:true,
+            enableRowBody:true,
+            showPreview:false,
+            getRowClass : function(record, rowIndex, p, ds){
+                if(this.showPreview){
+                    p.body = '<p>id is '+record.id+'</p>';
+                    return 'x-grid3-row-expanded';
+                }
+                return 'x-grid3-row-collapsed';
+            }
+        },
+        bbar: new Ext.PagingToolbar({
+            pageSize: 20,
+            store: ds,
+            displayInfo: true,
+            displayMsg: '当前显示 结果{0} - {1} ，共有{2}个结果',
+            emptyMsg: "该列表没有内容可以显示"
+        })
+    });
+
+    ds.load({params:{start:0, limit:20}});
+
+	var peisong_pg = new Ext.grid.PropertyGrid({
+		//autoHeight: true,
+		autoWidth: true,
+		height:300,
+		autoScroll:true,
+		autoSort:false 
+	});
+
+
+	var right_panel = new Ext.form.FormPanel({
+		url:"../dhadmin_appbaojian_orderedit/",
+		method:"post",
+		reader: new Ext.data.JsonReader({successProperty: 'success',root: 'info'},['id','status','anote']),
+		region:"east",
+		buttonAlign:'center' , 
+		title:"订单详情",
+		labelAlign:"right",
+		width:400,
+		//frame :false,
+		//border:false,
+		split:true,
+		autoScroll:true,
+		collapsible:true,
+		height: Ext.get("i3_center").getHeight()-30,
+		items:[{
+			//title:'订单详情',
+			layout:'form',
+			autoScroll:true,
+			//autoWidth: true,
+			frame:false,
+			border:false,
+			items: [peisong_pg]
+		},{
+			title:'订单操作',
+			layout:'form',
+			bodyStyle:'padding:5px', 
+			//autoWidth: true,
+			//defaultType: 'textfield',		
+			items:[{
+				xtype:"hidden",
+				name:"id",
+				hidden:true,
+				hiddenLabel:true,
+				allowBlank:false
+			},{
+				xtype:'radiogroup',
+				name:'rdstatus',
+				defaultType:'radio',
+				fieldLabel:'订单状态',
+				items:[{
+					name:'status',
+					inputValue:'1',
+					boxLabel:'未处理'
+				},{
+					name:'status',
+					inputValue:'2',
+					boxLabel:'确认预定'
+				},{
+					name:'status',
+					inputValue:'3',
+					boxLabel:'关闭订单'
+				}]
+			},{
+				fieldLabel: '订单备注',
+				name: 'anote',
+				width:240,
+				height:44,
+				xtype:'textarea'
+			}]
+		}],
+		//footer ：true,
+		buttons: [{
+			text:"保 存",
+			width:100,
+			handler:function(){
+				if(right_panel.form.isValid()){
+					right_panel.getForm().submit({
+						clientValidation:true,//进行客户端验证   
+						waitMsg : '数据提交中',//提示信息   
+						waitTitle : '提示',//标题   
+						progress : true, 
+						success:function(form,action){
+							if(action.result.success){
+								Ext.Msg.alert("成功","保存成功",function(){ds.reload();grid.getView().refresh()});
+							}else{
+								Ext.Msg.alert('数据保存失败',action.result.msg);
+							}
+						},
+						failure:function(form,action){
+							Ext.Msg.alert("失败","对不起，数据保存失败！提示："+action.result.msg);
+						}					
+					});
+				}else{
+					//Ext.MessageBox.alert("","验证失败");
+				}
+			}
+		},{
+			text:"重 置",
+			width:100,
+			handler:function(){
+				view_order(grid.getSelectionModel().getSelected().id);
+			}
+		}]
+	});
+	
+	
+	//主面板
+	var main_panel = new Ext.Panel({
+		layout : 'border',
+		bodyBorder: false,
+		renderTo: 'index_dingcanorder_20110915',
+		frame :false,
+		border:false,
+		autoScroll:false,
+		height: Ext.get("i3_center").getHeight()-30,
+		items : [grid,right_panel]
+	});
+
+	ds.on("beforeload", function(){
+		this.baseParams = {
+			 id : Ext.get('index_roomorder_id_20110406').dom.value,
+			 orderdate : Ext.get('index_roomorder_orderdate_20110406').dom.value,
+			 status : Ext.query("*[name=index_roomorder_status_20110406]")[0].value,
+			 lunsup : Ext.query("*[name=index_roomorder_lunsup_20110406]")[0].value,
+			 limit:20
+		}
+	});	
+	
+	//点击查看订单
+	var view_order = function(o_id){
+		//peisong_pg.on('beforeedit',function(e){e.cancel=true;return false});
+		//加载配送信息
+		var propertyStore = new Ext.data.JsonStore({
+			autoLoad: true,  //自动加载数据
+			url: '../dhadmin_appbaojian_findOrderPg/?oid='+o_id,
+			//root: 'props',
+			fields: [
+				{name:'订单号',mapping:'id'},
+				{name:'姓名',mapping:'name'},
+				{name:'单位',mapping:'danwei'},
+				{name:'手机',mapping:'phone'},
+				{name:'包间',mapping:'r_name'},
+				{name:'预定日期',mapping:'orderdate'},
+				{name:'类型',mapping:'lunsup'},
+				{name:'其他要求',mapping:'note'},
+				{name:'IP',mapping:'ip'}
+			],
+			listeners: {
+				load: {
+					fn: function(store, records, options){
+							if((store.getAt(0).data.类型)==1){
+								store.getAt(0).data.类型 ="午餐"
+							}else{
+								store.getAt(0).data.类型 ="晚餐"
+							}
+							peisong_pg.setSource(store.getAt(0).data);
+					}
+				}
+			}
+		});
+		right_panel.getForm().load({
+			url:'../dhadmin_appbaojian_findorderjson/?id='+o_id,
+			nocache: true,
+			//waitTitle:'加载数据',
+			//waitMsg:'Loading',
+			success : function(form, action){
+				right_panel.findByType("radiogroup")[0].setValue(action.result.data.status);//把是选
+			}
+		}); 
+		
+	}
+
+});
+</script>
+<div id="index_dingcanorder_20110915"></div>

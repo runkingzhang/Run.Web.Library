@@ -1,0 +1,78 @@
+/* ---------------------------reset.css -----------------------------------------*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td{margin:0;padding:0;}
+fieldset,img{border:0;}address,caption,cite,code,dfn,em,th,var{font-style:normal;font-weight:normal;}
+ol,ul{list-style:none;}caption,th {text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;}q:before,q:after{content:'';}
+table{table-layout:fixed;}
+th,td{vertical-align:top;}
+i{overflow:hidden;display:inline-block;}
+iframe{background-color:white;}
+input[type="radio"],input[type="checkbox"]{margin-right:2px;#margin-right:0;}
+input{font-size:12px;font-family:Tahoma,Arial, Helvetica, sans-serif;-moz-background-clip:border;-moz-background-inline-policy:continuous;-moz-background-origin:padding;outline-color:-moz-use-text-color;outline-style:none;outline-width:medium;}
+label input{position:relative;top:2px;#top:1px;font-size:12px;}
+textarea{overflow:auto;padding:1px 0 0 1px;font-size:12px;}
+select{font-size:12px;}
+cite{line-height:33px;display:none;text-indent:-999px;}
+body{margin:0px;padding:0px;font-size:12px;color:#333;font-family:"微软雅黑";background:#fff;}
+.clear{ clear:both; height:0; overflow:hidden;}
+a{color:#333;text-decoration:none;font-size:12px;}
+a:hover{color:#000;text-decoration:underline; }
+a:actived{ border:none;}
+.all{ width:960px; margin:0 auto;}
+body{ width:960px; margin:0 auto; background:#fff; background:url(../img/bg_fonds.jpg) left top no-repeat; }
+/* ---------------------------header-----------------------------------------*/
+header{height:auto; padding:15px 0 5px 0;}
+.site-name .logo{font:bold 28px 'mingliu'; color: #333;}
+.site-name .logo:hover{color: #666; text-decoration:none; }
+.site-describe{height:30px;  margin:0 0 0 15px;}
+.site-describe p{line-height:16px; font-size:12px; color:#666666;}
+/* ---------------------------container-----------------------------------------*/
+	/* ---------------------------sidebar-----------------------------------------*/
+#sidebar{ padding:0 0 0 5px;}
+.firendLink h3 a,#menu h3{height:30px;  padding:5px auto 5px auto;border-bottom:1px dashed #ddd;text-align:center; font-size:14px;font-weight:normal;color:#000;}
+.firendLink h3 a{ display:block;}
+#sidebar ul li{border-bottom:1px dashed #ddd; text-align:center;}
+#sidebar ul li a{margin:0 2px;line-height:20px;font-size:12px;color: #666; }
+#sidebar ul li a:hover,#menu ul li.on,.firendLink h3 a:hover{text-decoration:none; font-weight:bold;color: #333;}
+.firendLink{ margin:15px 0 0 0 ;}
+.firendLink h3 a:hover{ text-decoration:none;font-weight: normal;}
+	/* ---------------------------content-----------------------------------------*/
+		/* ---------------------------index.content-----------------------------------------*/
+#content{overflow:hidden; margin:0 0 0 10px; min-height:500px;}
+#content h3{ line-height:20px;}
+#content ul.main{ width:630px;}
+#content ul.main li{margin:0 20px 10px 0;  }
+#content ul.main li  h3 a{font-size:14px; font-weight:700; }
+#content ul.main li  h3 .date{ font-weight:normal;}
+/* ---------------------------news_list page-----------------------------------------*/
+.news_list_title{height:30px; border-bottom:1px dashed #ddd;  text-align: left;font-size:14px; font-weight:normal; color:#000; }
+.news_list_title span a{ line-height:30px;text-align:center; font-size:14px; font-weight:normal;color:#000;}
+.news_list_title span a:hover{color:#666666; text-decoration:none;}
+#news_list ul{ border-top:1px dashed #ddd; padding-top:10px;}
+#news_list ul li{ line-height:25px;}
+#news_list ul li a{ width:630px; height:25px; overflow:hidden; ;float:left;display:block; }
+#news_list ul li a:hover{ font-style:italic; }
+#news_list ul li span{ float:right;display:block}
+#news_list .news_list_bottom{ margin-top:30px; border-top:1px dashed #ddd; padding-top:10px; font-weight:bold; line-height:22px;}
+#news_list .news_list_bottom p{ font-size:14px; margin-left:300px;}
+.fenye{ float:right; margin-top:10px; color:#999;}
+.fenye a{ color:#999999}
+/* ---------------------------news_content page-----------------------------------------*/
+.news_content_title h2{ padding:0 0 5px  0; line-height:30px;text-align:center;font-size:16px; font-weight:bold;border-bottom:1px dashed #aaa;}
+.news_content_title p{text-align:right; padding:10px 60px 0 0; line-height:20px;}
+.news_content_middle{line-height:22px; padding:10px 24px 20px 24px; width:650px;  font-size:12px; color: #444 ; }
+.news_content_middle p{margin-bottom:10px; text-indent:24px;color: #666 !important;}
+#know_us{ margin:10px 0 0 0 ;}
+/* ---------------------------footer-----------------------------------------*/
+#footer{ border-top:1px dashed  #999; padding:5px 0 30px 0 ; }
+#footer p{font-size:12px; line-height:20px;color:#333;}
+#footer p a{ padding:0 3px;}
+#footer p a:hover{ padding:0 3px;color:#000; text-decoration: underline;}
+.firendLink-container{ padding:20px 0;}
+.header{background: #149bdf;}
+
+
+
+
+
+
+
