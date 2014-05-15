@@ -3,6 +3,7 @@
 
 ##HTML学习
 HTML5文档定义，相比HTML4而言简化了很多。
+``` 
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,9 +13,9 @@ HTML5文档定义，相比HTML4而言简化了很多。
 <body>
 </body>
 </html>
-
+``` 
 把下面的页面HTML4代码转化为HTML5
-
+``` 
 <!doctype html>
 <html lang="en">
 <head>
@@ -102,20 +103,7 @@ HTML5是HTML4的进化版，所有东西的修改是为了更加方便。所以�
 </footer>
 </body>
 </html>
-
-
-spec-author-view
-
-## Structure
-根目录说明:
-* `Structure.Syntax.and.Semantics` [Code, Article] Structure.Syntax.and.Semantics，HTML5结构-语法和语义视频教程，是对HTML5最基础的学习
-和练习
-* `Canvas` [Code, Article]Canvas，简单的理解就是把页面理解为PS中的图层，在上面用function来画画
-* `Drag.and.Drop` [Code, Article] Drag.and.Drop，HTML5在页面中的拉伸和拖放，这个功能在一些js类库中也可以实现，如EasyUI，
-HTML5把这个内置了信息
-* `Video.and.Audio` [Code, Article] Video.and.Audio，学习视频和音频应用视频教程,
-* `Local.Storage.And.Offline.Applications` [Code, Article] Local.Storage.And.Offline.Applications，深入学习本地存储与离线应用
-* `Geolocation` [Code, Article] Geolocation地理定位视频
+``` 
 
 
 
