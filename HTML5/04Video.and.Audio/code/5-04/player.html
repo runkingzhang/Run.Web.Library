@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>HTML5 Video Player</title>
+  <script src="../_scripts/jquery-1.5.1.min.js"></script>
+  <script src="player.js"></script>
+  <link href="player.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+  <video id="my_video" width="480" height="300" preload="none" poster="../_video/podcast-poster.jpg">
+    <source src="../_video/podcast.mp4" type="video/mp4" />
+    <source src="../_video/podcast.webm" type="video/webm" />
+    <source src="../_video/podcast.ogv" type="video/ogg" />
+    <p>Your browser does not support HTML5 video.</p>
+  </video>
+
+  <div id="video_controls">
+    <div id="play_toggle" class="player-button">Play</div>
+	<div id="progress">
+		<div id="play_progress"></div>
+	</div>
+  </div>
+
+</body>
+</html>

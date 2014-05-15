@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<!-- 
+    coordinates.html by Bill Weinman 
+    <http://bw.org/contact/>
+    created 2011-06-15
+    updated 2011-07-20
+
+    Copyright (c) 2011 The BearHeart Group, LLC
+    This file may be used for personal educational purposes as needed. 
+    Use for other purposes is granted provided that this notice is
+    retained and any changes made are clearly indicated as such. 
+-->
+
+<head>
+    <title>
+        HTML5 Geolocation
+    </title>
+    <link rel="stylesheet" type="text/css" href="../CSS/main.css" />
+    <script type="text/javascript" src="../Javascript/bwH5.js"></script>
+    <script type="text/javascript">
+        var t = new bwTable();
+        var geo;
+
+        function getGeoLocation() {
+            try {
+                if( !! navigator.geolocation ) return navigator.geolocation;
+                else return undefined;
+            } catch(e) {
+                return undefined;
+            }
+        }
+
+        function dispResults() {
+            element('results').innerHTML = t.getTableHTML();
+        }
+
+        function init() {
+            if((geo = getGeoLocation())) {
+                statusMessage('Using HTML5 Geolocation')
+                t.setHeader( [ 'Latitude', 'Longitude' ] );
+                t.addRow( [ '&nbsp;', '&nbsp;' ] );
+            } else {
+                statusMessage('HTML5 Geolocation is not supported.')
+            }
+            dispResults();
+        }
+
+        window.onload = function() {
+            init();
+        }
+    </script>
+</head>
+
+<body>
+
+<div id="content">
+
+    <h1> 
+        HTML5 Geolocation
+    </h1>
+    
+    <p class="message" id="statusMessage"/>
+    
+    <div id="results">
+    <!-- results show here -->
+    </div>
+
+</div>
+</body>
+</html>

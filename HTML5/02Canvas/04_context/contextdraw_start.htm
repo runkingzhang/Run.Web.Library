@@ -1,0 +1,43 @@
+<!--
+date：2013-09-04
+commit：canvas  学习
+
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Drawing Into the 2D Context</title>
+		<style type="text/css">
+			#Canvas1 {
+				border: dotted 1px black;
+			}
+		</style>
+		<script>
+			window.onload = function() {	
+			var theCanvas = document.getElementById('Canvas1');
+				if (theCanvas && theCanvas.getContext) {
+					var ctx = theCanvas.getContext("2d");
+					if (ctx) {
+						ctx.fillStyle = "lightGray";
+						ctx.fillRect(0,0, ctx.canvas.width, ctx.canvas.height);
+					}
+			}
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Drawing Into the 2D Context</h1>
+		<p>After retrieving the canvas context, you can use the drawing methods to create content</p>
+		<canvas id="Canvas1" width="400" height="300">Your browser does not support canvas.</canvas>
+	</body>
+</html>
+<!--
+note:
+    canvas，这个英文的翻译是“画布”。我当是的第一反应就是PS中的画布，没错，PS中的画布也就是canvas。在对canvas的学习中也不断的肯定了这两者间的关系。HTML5的出现目的就是简化开发，而PS设计不正是前端工作人员的上流吗？新人在学习canvas的时候对应ps中的画布就可以快速理解canvas的各种API，掌握canvas的开发，余下的问题就是在数学方面的建模了。不得不说要简历很好的canvas模型需要很好的数学基础，无论是canvas的2D ，3D都是如此。
+    所有前端都知道结构，样式和行为的分离。在画布上“画”东西着无疑是一个动作，所以要使用canvas，不得不使用javascript，
+这也是HTML5的一个特点，HTML5新增的一些标签就像是一些接口，二对接口的具体操作都是在javascript中完成的。
+     通过 document.getElementById('Canvas1')来获取对应的标签，并给canvas赋予长宽属性，因为windows.onload是在页面加载完
+HTML和CSS后触发js脚本，所以对在js中对canvas的width，height属性的定义会覆盖原来的CSS中的样式内容。
+     这边需要注意的一点是在js中给canvas赋予width给height属性时我们不需要加单位 px。
+
+-->

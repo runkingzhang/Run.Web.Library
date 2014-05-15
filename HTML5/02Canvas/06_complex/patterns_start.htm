@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Drawing Patterns</title>
+		<style type="text/css">
+			#Canvas1 {
+				border: dotted 1px black;
+			}
+		</style>
+		<script>
+			window.onload = function() {
+				var theCanvas = document.getElementById('Canvas1');
+				if (theCanvas && theCanvas.getContext) {
+					var ctx = theCanvas.getContext("2d");
+					if (ctx) {
+						//背景画布图案填充，相当于CSS中背景图片
+						// create a pattern from an image
+						var patImg = new Image();
+						patImg.onload = function() {
+							ctx.fillStyle = ctx.createPattern(patImg,"repeat-x");//相当于图像的内容信息
+							//fill用pattern来fillcanvas的内容图像
+							ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
+						}
+						patImg.src = "images/desert_desc_bug.gif";
+						
+						// create a pattern from a video 用视屏内容来填满内容图像内容信息
+						setTimeout(function() {
+							var vid = document.getElementById('vidEl');
+							var theCanvas = document.getElementById('Canvas1');
+							var ctx = theCanvas.getContext("2d");
+							var vidPat = ctx.createPattern(vid,"repeat");
+							ctx.fillStyle = vidPat;
+							ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
+						},3000);
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Drawing Patterns</h1>
+		<p>Patterns can be created from images, videos, or even other canvas elements.</p>
+		<canvas id="Canvas1" width="700" height="300">Your browser does not support canvas.</canvas>
+		<canvas id="patCan" width="25" height="25"></canvas>
+		<video id="vidEl" src="video/podcast_teaser.mp4" controls style="display:block"></video>
+	</body>
+</html>

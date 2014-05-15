@@ -1,0 +1,42 @@
+#video_controls {
+  width: 480px;
+  height: 30px;
+  background-color: #333;
+  color: #fff;
+  font-family: Verdana, sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+#video_controls div {
+  float: left;
+  height: 30px;
+  line-height: 30px;
+}
+
+.player-button {
+  width: 50px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#progress {
+  position: relative;
+  background: #555;
+  width: 310px;
+}
+
+#play_progress {
+  position: absolute;
+  background: #6C3;
+}
+
+#load_progress {
+  position: absolute;
+  background: #69C;
+}
+
+#time {
+  width: 120px;
+  text-align: center;
+}
