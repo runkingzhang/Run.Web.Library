@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Drawing Patterns</title>
+		<style type="text/css">
+			#Canvas1 {
+				border: dotted 1px black;
+			}
+		</style>
+		<script>
+			window.onload = function() {
+				var theCanvas = document.getElementById('Canvas1');
+				if (theCanvas && theCanvas.getContext) {
+					var ctx = theCanvas.getContext("2d");
+					if (ctx) {
+						// create a pattern from another canvas
+						var patCanvas = document.getElementById('patCan');
+						var patCtx = patCanvas.getContext("2d");
+						// draw a line in the canvas
+						patCtx.strokeStyle = "red";
+						patCtx.lineWidth=1;
+						patCtx.beginPath();
+						patCtx.moveTo(10,0);
+						patCtx.lineTo(25,25);
+						//这边和x轴，y轴有点不同就是 。y轴向下内容为正
+						patCtx.stroke();
+						
+						// now use that canvas as a pattern
+						var strokePat = ctx.createPattern(patCanvas,"repeat");
+						//相当于画笔对象的内容，来定义画笔的图形内容
+						ctx.strokeStyle = strokePat;
+						ctx.lineWidth = 25;
+						ctx.strokeRect(50,50,200,200);
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Drawing Patterns</h1>
+		<p>Patterns can be created from images, videos, or even other canvas elements.</p>
+		<canvas id="Canvas1" width="700" height="300">Your browser does not support canvas.</canvas>
+		<canvas id="patCan" width="25" height="25"></canvas>
+		<video id="vidEl" src="video/podcast_teaser.mp4" controls style="display:none"></video>
+	</body>
+</html>

@@ -1,0 +1,46 @@
+/*
+    rps.css by Bill Weinman 
+    <http://bw.org/contact/>
+    created 2011-07-12
+
+    Copyright (c) 2011 The BearHeart Group, LLC
+    This file may be used for personal educational purposes as needed. 
+    Use for other purposes is granted provided that this notice is
+    retained and any changes made are clearly indicated as such. 
+
+    v 1.0.2 - bw 2011-07-18
+*/
+
+#columns div {
+    float: left;
+    margin-right: 20px;
+    border: 2px solid white;
+}
+
+#columns footer {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+
+p#clear {
+    clear: both;
+    height: 10px;
+}
+
+
+/* transitions */
+div {
+  -webkit-transition: -webkit-transform 0.2s ease-out;
+  -moz-transition: -moz-transform 0.2s ease-out;
+  -o-transition: -o-transform 0.2s ease-out;
+  transition: transform 0.2s ease-out;
+}
+
+div.moving {
+  opacity: 0.25;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -o-transform: scale(0.8);
+  transform: scale(0.8);
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<!-- 
+    geoLocTest.html by Bill Weinman 
+    <http://bw.org/contact/>
+    created 2011-06-15
+    updated 2011-07-20
+
+    Copyright (c) 2011 The BearHeart Group, LLC
+    This file may be used for personal educational purposes as needed. 
+    Use for other purposes is granted provided that this notice is
+    retained and any changes made are clearly indicated as such. 
+-->
+
+<head>
+    <title>
+        Geolocation Test (1.1.3)
+    </title>
+    <link rel="stylesheet" type="text/css" href="../CSS/main.css" />
+    <script type="text/javascript" src="../Javascript/bwH5.js"></script>
+    <script type="text/javascript">
+        var t = new bwTable();
+        var watchID;
+        var geo;
+
+        // position options
+        var MAXIMUM_AGE = 1000;  // 1 second
+        var TIMEOUT = 300000;   // 5 minutes
+        var HIGHACCURACY = true;
+
+        function getGeoLocation() {
+            try {
+                if( !! navigator.geolocation ) return navigator.geolocation;
+                else return undefined;
+            } catch(e) {
+                return undefined;
+            }
+        }
+
+        function show_coords(position) {
+            d = new Date();
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+            t.updateRow(0, [ lat.toString(), lon.toString(), d.toLocaleString() ] );
+            dispResults();
+        }
+
+        function geo_error(error)
+        {
+            stopWatching();
+            switch(error.code) 
+            {
+                case error.TIMEOUT:
+                    alert ('Geolocation Timeout');
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert ('Geolocation Position unavailable');
+                    break;
+                case error.PERMISSION_DENIED:
+                    alert ('Geolocation Permission denied');
+                    break;
+                default:
+                    alert('Geolocation returned an unknown error code: ' + error.code);
+            }
+        }
+
+        function stopWatching() {
+            if(watchID) geo.clearWatch(watchID);
+            statusMessage('Stopped.');
+            startStopElement.value = 'Start';
+            watchID = null;
+        }
+
+        function startStopWatching() {
+            startStopElement = element('startStop');
+            if(startStopElement.value == 'Start') {
+                watchID = geo.watchPosition(show_coords, geo_error, {
+                    enableHighAccuracy: HIGHACCURACY,
+                    maximumAge: MAXIMUM_AGE,
+                    timeout: TIMEOUT
+                });
+                startStopElement.value = 'Stop';
+            } else {
+                stopWatching();
+                statusMessage('Stopped.');
+                startStopElement.value = 'Start';
+            }
+        }
+        
+        function dispResults() {
+            if(errorMessage) {
+                element('results').innerHTML = errorMessage;
+                return;
+            }
+            element('results').innerHTML = t.getTableHTML();
+            statusMessage(watchID ? 'Watching.' : 'Stopped.');
+        }
+
+        function init() {
+            if((geo = getGeoLocation())) {
+                t.setHeader( [ 'Latitude', 'Longitude', 'Time' ] );
+                t.addRow( [ '&nbsp;', '&nbsp;', '&nbsp;' ] );
+            } else {
+                statusMessage('HTML5 Geolocation is not supported.')
+            }
+            dispResults();
+        }
+
+        window.onload = function() {
+            init();
+        }
+    </script>
+</head>
+
+<body>
+
+<div id="content">
+
+    <h1> 
+        Geolocation Test (1.1.3)
+    </h1>
+    
+    <p class="message" id="statusMessage"/>
+    
+    <div id="results">
+    <!-- results show here -->
+    </div>
+    
+    <form>
+        <input id="startStop" type="button" value="Start" onClick="startStopWatching()" />
+    </form>
+
+</div>
+</body>
+</html>

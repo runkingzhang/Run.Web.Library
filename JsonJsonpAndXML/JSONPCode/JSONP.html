@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Demo</title>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript">
+function do_jsonp() {
+	//在其他的域名中获取json
+    $.getJSON("http://example.com/demo/jsonp.php?type=json&callback=callback_function_name",
+	// 在HTML DOM中注入数据内容
+    function(data) {
+        $('#result').val('data.Image.IDs: ' + data.Image.IDs);
+    });
+}
+</script>
+</head>
+<body>
+<a href="javascript:do_jsonp();">Click me</a><br />
+<textarea id="result" cols="50" rows="5"></textarea>
+</body>
+</html>

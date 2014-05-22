@@ -1,0 +1,386 @@
+@charset "UTF-8";
+/*
+Explore California style sheet
+copyright lynda.com 2010
+styles used here may be used
+for educational purposes only
+do not repurpose these styles
+or republish them without permission
+from the author
+*/
+
+/*color guide:
+#e1d8b9 sand
+#cb7d20 orange
+#952 accent orange (dark)
+#3c6b92 main blue
+#2c566a teal
+#c3cebc light green
+#7f7f7f accent gray
+*/
+
+/*limited reset*/
+html, body, div, section, article, aside, header, hgroup, footer, nav, h1, h2, h3, h4, h5, h6, p, blockquote, address, time, span, em, strong, img, ol, ul, li, figure, canvas, video, th, td, tr {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+a {
+	text-decoration: none;
+	color: #cb7d20;
+}
+a:hover {
+	color: #952;
+}
+
+/*html5 display rule*/
+
+html {
+	background: #ddd;
+}
+body {
+	font: 100% Georgia, "Times New Roman", Times, serif;
+	width: 1100px;
+	margin: 0 auto;
+	padding: 0 50px;
+	text-align:left;
+	position: relative;
+	background: #fff url(../_images/logo.gif) no-repeat 50px 0;
+}
+
+nav ul, ul.menu {
+	list-style: none;
+}
+
+/* layout styles */
+header#mainHeader {
+	height: 185px;
+}
+section#trailReviews {
+	float: left;
+	width: 600px;
+	padding: 0 10px 0 25px;
+	margin-bottom: 2em;
+}
+article#riderReviews {
+	float: right;
+	clear: right;
+	width: 450px;
+	margin-bottom: 0;
+}
+aside#adCopy {
+	float: right;
+	clear: right;
+	width: 450px;
+	margin-bottom: 1em;
+}
+footer#pageFooter {
+	clear: both;
+	overflow: auto;
+}
+
+/*-------------presentation styles---------------*/
+
+/*header styles*/
+header#mainHeader {
+	background: url(../_images/cycle_back.gif) no-repeat bottom right;
+	padding: 75px 0 0 245px;
+	position: relative;
+	border-bottom: 2px solid #7f7f7f;
+	margin-bottom: 1em;
+}
+header#mainHeader h1 span {
+	position: absolute;
+	left: -2000em;
+}
+header#mainHeader nav {
+	position: absolute;
+	left: 225px;
+	top: 0;
+	padding-top: 15px;
+}
+header#mainHeader nav h2{
+	position: absolute;
+	left: -2000em;
+}
+header#mainHeader ul {
+	float: left;
+}
+header#mainHeader ul li {
+	float: left;
+}
+header#mainHeader ul li a{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1.2em;
+	color: #000;
+	padding: 0 20px;
+	border-right: 1px solid #000;
+	text-decoration: none;
+}
+header#mainHeader ul li a:last-child{
+	border: none;
+}
+header#mainHeader ul li a.current {
+	color: #cb7d20;
+}
+header#mainHeader ul li a:hover {
+	color: #cb7d20;
+}
+header#mainHeader hgroup h1 {
+	font-size: 6em;
+	color: #7f7f7f;
+	font-weight: normal;
+}
+header#mainHeader hgroup h2 {
+	font-weight: normal;
+	font-size: 2em;
+}
+
+/*trail info section styles*/
+section#trailReviews {
+	border-right: 1px solid #7f7f7f;
+}
+section#trailReviews header p {
+	font-size: .9em;
+	color: #cb7d20;
+}
+section#trailReviews header a {
+	color: #cb7d20;
+}
+section#trailReviews header a:hover {
+	color:#952
+}
+section#trailReviews header h2 {
+	font-weight: normal;
+	font-size: 1.8em;
+	margin-top: .5em;
+}
+section#trailReviews article h2 {
+	font-weight: normal;
+	color: #7f7f7f;
+	font-size: 3em;
+	margin-bottom: .2em;
+}
+section#trailReviews caption {
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 1.4em;
+	text-align: left;
+}
+
+section#trailReviews table#quickFacts {
+	width: 425px;
+	background: #c3cebc;
+	border: none;
+	margin: .5em 0 1em;
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+section#trailReviews table#quickFacts th {
+	width: 100px;
+}
+section#trailReviews table#quickFacts th, section#trailReviews table#quickFacts td {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: .8em;
+	padding-left: 1em;
+	text-align: left;
+	line-height: 3;
+	margin:0;
+}
+section#trailReviews table#quickFacts tr:nth-child(odd)  {
+	background: #e1d8b9;
+}
+section#trailReviews p, section#trailReviews address {
+	color: #666;
+	line-height: 1.6;
+	margin-bottom: 1em;
+}
+section#trailReviews img{
+	display: block;
+}
+section#trailReviews figcaption {
+	text-transform: uppercase;
+	color: #4d4d4d;
+	font-size: 1.2em;
+}
+section#trailReviews blockquote {
+	background: #ddd;
+	color: #4d4d4d;
+	font-size: 1.3em;
+	line-height: 1.6;
+	margin-bottom: 1em;
+	padding: .5em .5em 0;
+}
+section#trailReviews blockquote footer{
+	background: #4d4d4d;
+	color: #fff;
+	text-align: right;
+	padding: .5em;
+	line-height: 1;
+	margin: .5em -.5em 0;
+	font-size: .9em;
+}
+section#trailReviews h3 {
+	font-size: 1em;
+	margin-top: 1.2em;
+	margin-bottom: 0;
+	color: #000;
+}
+section#trailReviews header h3 {
+	margin-top: 3em;
+	font-size: 1.2em;
+}
+section#trailReviews footer.articleFooter {
+	background: #e1d8b9;
+	padding: .5em;
+	margin-bottom: 2em;
+}
+section#trailReviews footer.articleFooter p {
+	margin:0 0 .5em;
+}
+section#trailReviews footer.articleFooter p:first-child {
+	font-weight: bold;
+	font-style: italic;
+}
+section#trailReviews article.comment {
+	background: #ccc;
+	padding: 0 .5em .1em;
+}
+section#trailReviews article section h2 {
+	font-size: 2em;
+	margin: 0;
+}
+section#trailReviews article.comment h2 {
+	background: #4d4d4d;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	color: #fff;
+	padding: .5em;
+	margin: 0 -.5em .5em;
+}
+section#trailReviews article.comment h2 span {
+	font-size: 1.4em;
+	font-weight: bold;
+}
+section#trailReviews dt {
+	font-weight: bold;
+	text-transform: uppercase;
+	color:#4d4d4d;
+	margin: 3em 0 1em;
+}
+section#trailReviews dd {
+	width: 250px;
+	background: #e1d8b9;
+	margin-bottom: 1em;
+	padding: .3em;
+}
+section#trailReviews a {
+	color: #000;
+}
+section#trailReviews a:hover {
+	color: #952;
+}
+/*trail news aside styles*/
+article#riderReviews {
+	font-size: 90%;
+}
+article#riderReviews h2{
+	font-size: 2.6em;
+	font-weight: normal;
+	color: #7f7f7f;
+	margin-bottom: .5em;
+}
+article#riderReviews article {
+	background: #e1d8b9;
+	padding: 1em 1em;
+	margin-bottom: 1.5em;
+}
+article#riderReviews article h2 {
+	font-size: 1.6em;
+	margin-bottom: .2em;
+	color: #000;
+	font-weight:bold;
+}
+article#riderReviews article h3 {
+	font-size: 1.4em;
+	color: #666;
+	font-weight: normal;
+	margin-bottom: .2em;
+}
+article#riderReviews article p, article#riderReviews aside p, aside#adCopy p {
+	line-height: 1.8;
+	color: #333;
+	margin-bottom:1em;
+}
+article#riderReviews article p.pubdate {
+	text-align:right;
+	color: #666;
+	font-size: .9em;
+	font-style: italic;
+}
+
+article#riderReviews aside {
+	background: #e1d8b9;
+	padding: 0 20px 20px;
+	margin-bottom: 1.5em;
+}
+article#riderReviews aside h2 {
+	font-size: 1.6em;
+	color: #000;
+	background: #c3cebc;
+	margin: 0 -20px .5em;
+	padding: .5em;
+}
+aside#adCopy h2 {
+	font-size: 1.4em;
+	margin-bottom: .2em;
+	color: #4d4d4d;
+	font-weight:bold;
+}
+aside#adCopy img {
+	display: block;
+	margin: .5em auto;
+}
+aside#adCopy strong{
+	font-size: 1.2em;
+	color: #952;
+	font-weight: normal;
+	text-decoration: underline;
+}
+aside#adCopy a{
+	display:block;
+}
+aside#adCopy p{
+	margin-bottom: 0;
+}
+/*footer styles*/
+footer#pageFooter {
+	border-top: 2px solid #7f7f7f;
+	padding: 2em;
+}
+footer#pageFooter div.leftCol {
+	float: left;
+	width: 600px;
+}
+footer#pageFooter div.rightCol {
+	float: right;
+	width: 420px;
+	text-align: right;
+}
+footer#pageFooter div.rightCol a {
+	color: #666;
+}
+footer#pageFooter div.rightCol a:hover {
+	color: #952;
+}
+footer#pageFooter p {
+	margin-bottom: 1em;
+	color: #666;
+}
+footer#pageFooter p.topLink {
+	background: url(../_images/up.gif) no-repeat right center;
+	padding-right: 20px;
+}
+footer#pageFooter small {
+	font-style: italic;
+}
