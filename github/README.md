@@ -163,6 +163,8 @@ $ git commit -m "README for this project."
 //不同的项目应该设置不同的名称，如果远程中已经存在origin会出现权限问题，更换名称即可。
 //网路上面的解决方法是不不正确的。建议好好学习git。
 $git remote add origin https://github.com/runkingzhang/helloworld
+git remote add Run.web git://github.com/runkingzhang/Run.Web.Library.git
+git remote set-url Run.web git@github.com:runkingzhang/Run.Web.Library.git
 $ git push -u origin master
 
 $ git add README.md
