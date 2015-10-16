@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Kissy_Ajax</title>
+<script src="js/kissy-min.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+</body>
+<div class="demo">
+     <style>
+         #photo-list img  {
+             border: 1px solid grey;
+             padding: 4px;
+             margin: 8px;
+         }
+         .loading {
+             background: transparent url(../../../../source/_static/loading.gif) no-repeat;
+             width: 100px;
+             height: 100px !important;
+             margin: 20px;
+         }
+     </style>
+     <button autocomplete="off" id="fetch-btn-anim">Fetch Photo</button>
+     <div id="photo-list"></div>
+
+     <script>
+         KISSY.use('node',function (S,Node) {
+             var $=Node.all;
+             var API = 'http://api.flickr.com/services/rest/?',
+                 params = {
+                     'method': 'flickr.favorites.getPublicList',
+                     'api_key': '5d93c2e473e39e9307e86d4a01381266',
+                     'user_id': '26211501@N07',
+                     'per_page': 10,
+                     'format': 'json',
+                     'jsoncallback': 'getFavorites'
+                 },
+                 photoList = $('#photo-list');
+
+             $('#fetch-btn-anim').on('click', function() {
+                 $(this).attr('disabled', true);
+                 photoList.addClass('loading');
+                 S.getScript(API + S.param(params));
+             });
+
+             window.getFavorites = function(data) {
+                 var html = 'Fetch photo failed, pls try again!',
+                     loading = true;
+
+                 if (data.stat === 'ok') {
+                     html = '';
+                     S.each(data.photos.photo, function(item, i){
+                        
+								   html += '<img src="http://farm' + item.farm + '.static.flickr.com/'
+                                         + item.server + '/' + item.id + '_' + item.secret + '_t.jpg" />';
+                     });
+                 }
+
+                 photoList.html(html).all('img').each(function(img) {
+                     img.on('load', function() {
+                         if(loading) {
+                             photoList.removeClass('loading');
+                             loading = false;
+                         }
+                         img.fadeIn(3);
+                     });
+                 });
+             }
+         });
+     </script>
+</div>
+</html>

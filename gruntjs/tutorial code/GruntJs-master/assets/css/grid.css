@@ -1,0 +1,15 @@
+/**
+ * @author:wkylin [wkylin@github.io]
+ * @name: im-talk
+ * @overview:
+ * @require: null
+ */
+.grid{
+    width: 100%;
+    margin: 0 auto;
+}
+
+.grid-box{
+    width: 50%;
+    height: 50%;
+}

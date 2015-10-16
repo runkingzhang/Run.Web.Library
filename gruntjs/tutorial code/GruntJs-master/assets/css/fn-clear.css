@@ -1,0 +1,50 @@
+/**
+ * @author:wkylin [wkylin@github.io]
+ * @name: fn-clear
+ * @overview: 清理浮动
+ * @require: null
+ */
+
+.fn-clear:after{
+    font-size: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+    height: 0;
+    content: ' ';
+}
+
+.fn-clear{
+    zoom: 1; /* for IE6 IE7 */
+}
+
+/* grunt box */
+
+.grunt-box{
+    line-height: 30px;
+    width: 300px;
+    height: 30px;
+    margin: 50px auto;
+    cursor: pointer;
+    text-align: center;
+}
+
+.text-color{
+    color: #fff;
+    background-color: #001100;
+/*    color: #fff;
+    background-color: #008c96;*/
+}
+
+form{
+    margin-bottom: 10px;
+}
+
+form input{
+    border: 1px solid #dddddd;
+    padding-left: 10px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 3px;
+    color: #f03d25;
+}

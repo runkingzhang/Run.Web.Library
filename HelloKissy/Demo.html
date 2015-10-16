@@ -1,0 +1,216 @@
+<html class="ks-gecko23 ks-gecko ks-firefox23 ks-firefox"><head>
+	<title></title>
+	<script src="http://a.tbcdn.cn/s/kissy/1.3.0/kissy.js"></script>
+	<style>
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	.content {
+		width: 500px;
+		height: 500px;
+		margin: 60px auto 0;
+		position: relative;
+	}
+	.img {
+		height: 500px;
+		position: relative;
+	}
+	.img:after {
+		content: '';
+		display: block;
+		visibility: hidden;
+		height: 0;
+		clear: both;
+	}
+	ul {
+		list-style: none;
+	}
+	ul li {
+		display: inline-block;
+		width: 100px;
+		height: 100px;
+		position: absolute;
+	}
+	ul li.list1 {
+		top: -50px;
+		left: 200px;
+	}
+	ul li.list2 {
+		top: 8px;
+		left: 39px;
+	}
+	ul li.list9 {
+		top: 8px;
+		left: 361px;
+	}
+	ul li.list3 {
+		top: 157px;
+		left: -46px;
+	}
+	ul li.list8 {
+		top: 157px;
+		left: 446px;
+	}
+	ul li.list4 {
+		top: 325px;
+		left: -17px;
+	}
+	ul li.list7 {
+		top: 325px;
+		left: 417px;
+	}
+	ul li.list5 {
+		top: 435px;
+		left: 114px;
+	}
+	ul li.list6 {
+		top: 435px;
+		left: 286px;
+	}
+	ul li img {
+		width: 100px;
+		height: 100px;
+		border-radius: 50px;
+		opacity: 0.2;
+	}
+	ul li.active img {
+		opacity: 1;
+	}
+	button {
+		position: absolute;
+		top: 330px;
+		left: 200px;
+		width: 100px;
+		height: 50px;
+		text-align: center;
+		margin: 50px auto;
+	}
+	.detail {
+		position: absolute;
+		display: none;
+		top: 80px;
+		left: 158px;
+		width: 183px;
+		height: 275px;
+		box-shadow: 0 0 5px #ccc;
+	}
+	</style>
+<script type="text/javascript" async="" id="tb-beacon-ac" exparams="category=&amp;userid=&amp;channel=112&amp;" src="http://a.tbcdn.cn/s/ac.js"></script><script type="text/javascript" async="" id="tb-beacon" exparams="category=&amp;userid=&amp;tid=&amp;channel=112&amp;atpanel_end" src="http://a.tbcdn.cn/s/atp.js"></script><script type="text/javascript" async="" id="tb-beacon-aplus" exparams="category=&amp;userid=&amp;aplus" src="http://a.tbcdn.cn/s/aplus_v2.js"></script><script type="text/javascript" async="" src="http://a.tbcdn.cn/s/fdc/??spm.js,spmact.js?v=130904"></script></head>
+<body><script type="text/javascript">
+(function (d) {
+var ta=d.createElement("script");ta.type="text/javascript";ta.async=true;ta.id="tb-beacon-ac";
+ta.setAttribute("exparams","category=&amp;userid=&amp;channel=112&amp;");
+ta.src=("https:"==d.location.protocol?"https://s":"http://a")+".tbcdn.cn/s/ac.js";
+d.getElementsByTagName("head")[0].appendChild(ta);
+})(document);
+</script>
+<script type="text/javascript">
+(function (d) {
+var ta=d.createElement("script");ta.type="text/javascript";ta.async=true;ta.id="tb-beacon";
+ta.setAttribute("exparams","category=&amp;userid=&amp;tid=&amp;channel=112&amp;atpanel_end");
+ta.src=("https:"==d.location.protocol?"https://s":"http://a")+".tbcdn.cn/s/atp.js";
+d.getElementsByTagName("head")[0].appendChild(ta);
+})(document);
+</script>
+<script type="text/javascript">
+(function (d) {
+var t=d.createElement("script");t.type="text/javascript";t.async=true;t.id="tb-beacon-aplus";
+t.setAttribute("exparams","category=&amp;userid=&amp;aplus");
+t.src=("https:"==d.location.protocol?"https://s":"http://a")+".tbcdn.cn/s/aplus_v2.js";
+d.getElementsByTagName("head")[0].appendChild(t);
+})(document);
+</script>
+
+	<div class="content">
+		<div class="img">
+			<ul class="img-list">
+				<li class="list1 active"><img src="./assets/op/1.png"></li>
+				<li class="list2"><img src="./assets/op/2.png"></li>
+				<li class="list3"><img src="./assets/op/3.png"></li>
+				<li class="list4"><img src="./assets/op/4.png"></li>
+				<li class="list5"><img src="./assets/op/5.png"></li>
+				<li class="list6"><img src="./assets/op/6.png"></li>
+				<li class="list7"><img src="./assets/op/7.png"></li>
+				<li class="list8"><img src="./assets/op/8.png"></li>
+				<li class="list9"><img src="./assets/op/9.png"></li>
+			</ul>
+		</div>
+		<button class="start">start</button>
+		<div class="detail">
+		</div>
+	</div>
+	<script>
+	KISSY.ready(function(S){
+		var $ = S.all, E = S.Event, A = S.Anim, IO = S.IO;
+
+		var opLotto = {
+			init: function(){
+				this.imgList = $('.img-list').all('li');
+				this.length = this.imgList.length;
+				this.startIndex = 0;
+			},
+			_run: function(index){
+				var next = index + 1 === this.length ? 0 : index + 1;
+				this.imgList.removeClass('active');
+				this.imgList.item(next).addClass('active');
+				this.startIndex = next;
+			},
+			start: function(){
+				var self = this;
+				self.timer = setInterval(function(){
+					self._run(self.startIndex);
+				}, 50);
+			},
+			pause: function(){
+				this.timer &amp;&amp; clearInterval(this.timer);
+				this._animate(this.startIndex);
+			},
+			_animate: function(index) {
+				var self = this;
+				var selectedItem = self.imgList.item(index);
+				var offsetTop = selectedItem.css('top');
+				var offsetLeft = selectedItem.css('left');
+				var cloneItem = selectedItem.one('img').clone().appendTo('.content').css({
+					'width': '100px',
+					'height': '100px',
+					'position': 'absolute',
+					'top': offsetTop,
+					'left': offsetLeft,
+					'border-radius': '50px'
+				}).animate({
+					'top': parseInt(offsetTop, 10) - 50
+				}, 0.2, 'easeOut').animate({
+					'top': 200,
+					'left': 200,
+					'opacity': 0
+				}, 1, 'bounceOut', function() {
+					cloneItem.remove();
+					self._print(index);
+				});
+			},
+			_print: function(index){
+				IO.get('./server.php', {'index': index}, function(data){
+					$('.detail').html('&lt;img src="' + data.url + '" /&gt;').fadeIn(0.5);
+				}, 'json')
+			}
+		}
+
+		opLotto.init();
+
+		$('button').on('click', function(ev){
+			var self = this;
+			if($(self).hasClass('start')){
+				$(self).replaceClass('start', 'pause').html('pause');
+				$('.detail').fadeOut();
+				opLotto.start();
+			}
+			else{
+				$(self).replaceClass('pause', 'start').html('start');
+				opLotto.pause();
+			}
+		})
+	})
+	</script>
+
+</body></html>
