@@ -1,0 +1,1 @@
+function demo(l){alert("--------\r\n"+l+"\r\n--------")}function hellogulp(){alert("hello gulp.")}demo("Hi");

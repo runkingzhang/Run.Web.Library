@@ -1,0 +1,31 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+article {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  a {
+    color: blue;
+    transition: color .5s;
+
+    &:focus,
+    &:hover {
+      color: orange;
+    }
+    &:active {
+      color: red;
+    }
+  }
+  h1 {
+    font-size: 3em;
+    line-height: 1;
+  }
+  h2 {
+    font-size: 2.25em;
+    line-height: 1.1;
+  }
+}

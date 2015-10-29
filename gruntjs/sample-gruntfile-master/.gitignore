@@ -1,0 +1,9 @@
+node_modules
+bower_components
+.DS_Store
+*.log
+.sass-cache
+
+# Ignore compiled files
+assets/css/*.css
+assets/js/*.min.js

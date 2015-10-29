@@ -1,0 +1,12 @@
+{
+  "browser": true,
+  "camelcase": true,
+  "curly": true,
+  "eqnull": true,
+  "eqeqeq": true,
+  "indent": 2,
+  "quotmark": "single",
+  "strict": true,
+  "trailing": true,
+  "undef": true
+}
