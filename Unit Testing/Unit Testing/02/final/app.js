@@ -8,6 +8,7 @@ module.exports = function (flights) {
 	var routes = require('./routes')(flights);
 	var path = require('path');	
 	var app = express();
+
 	// all environments
 	app.set('port', process.env.PORT || 3000);
 	app.set('views', __dirname + '/views');
@@ -31,7 +32,7 @@ module.exports = function (flights) {
 	app.get('/flight/:number', routes.flight);
 	app.put('/flight/:number/arrived', routes.arrived);
 	app.get('/list', routes.list);
-	
+
 	return app;
 }
 
